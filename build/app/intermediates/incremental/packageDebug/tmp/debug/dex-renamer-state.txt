@@ -1,4 +1,4 @@
-#Mon May 06 10:30:58 BRT 2019
+#Mon May 06 10:46:49 BRT 2019
 base.0=C\:\\Users\\Junior\\Documents\\GitHub\\SAICC\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

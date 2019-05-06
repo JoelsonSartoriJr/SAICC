@@ -28,7 +28,7 @@
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="saicc_ix"
+        android:label="SAICC IX"
         android:supportsRtl="true" >
         <activity
             android:name="com.example.saicc_ix.MainActivity"
