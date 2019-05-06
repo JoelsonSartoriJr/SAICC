@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../definitions/colors.dart';
 
 class Palestra extends StatefulWidget{
   @override
@@ -9,7 +10,8 @@ class _PalestraState extends State<Palestra> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Palestra')
+        title: Text('Palestra'),
+        backgroundColor: ColorsDefinitions().obterAppBarColor(),
       ),
     );
   }

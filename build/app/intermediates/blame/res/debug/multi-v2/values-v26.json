@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/ubuntu/GitHub/flutter/saicc_ix/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-v26/values-v26.xml",
+            "outputFile": "C:\\Users\\Junior\\Documents\\GitHub\\SAICC\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v26\\values-v26.xml",
             "map": [
                 {
-                    "source": "/home/ubuntu/.gradle/caches/transforms-2/files-2.1/3b14272959ff0666034810e231add964/res/values-v26/values-v26.xml",
+                    "source": "C:\\Users\\Junior\\.gradle\\caches\\transforms-2\\files-2.1\\f34cbf5519252603e4ecb457045aac45\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,3,4,8,12,16",
                         "startColumns": "4,4,4,4,4,4",

@@ -25,4 +25,20 @@ class ColorsDefinitions{
   Color obterDiaCardText(){
     return Colors.white;
   }
+
+  Color obterPalestranteBackgroundContainer(){
+    return Colors.blueAccent;
+  }
+
+  Color obterAppBarColor(){
+    return Colors.blueAccent;
+  }
+
+  Color obterPalestranteNome(){
+    return Colors.white;
+  }
+
+  Color obterPalestranteText(){
+    return Colors.grey[800];
+  }
 }

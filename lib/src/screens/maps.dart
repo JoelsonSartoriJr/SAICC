@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../definitions/colors.dart';
 
 class Maps extends StatefulWidget{
   @override
@@ -9,7 +10,8 @@ class _MapsState extends State<Maps> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Maps')
+        title: new Text('Maps'),
+        backgroundColor: ColorsDefinitions().obterAppBarColor(),
       ),
     );
   }

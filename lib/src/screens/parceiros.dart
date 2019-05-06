@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../definitions/colors.dart';
 import '../widgets/slivergrid.dart';
 
 class Parceiros extends StatefulWidget {
@@ -10,12 +11,15 @@ class _ParceirosState extends State<Parceiros> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text('Parceiros')),
+      appBar: new AppBar(
+        title: new Text('Parceiros'),
+        backgroundColor: ColorsDefinitions().obterAppBarColor(),
+      ),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverGrid.count(
             crossAxisCount: 2,
-            children: SliverGridBuild().obterParceirosList(), 
+            children: SliverGridBuild().obterParceirosList(),
           ),
         ],
       ),

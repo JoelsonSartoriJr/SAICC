@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/drawer.dart';
 import '../widgets/tabbar.dart';
 import '../definitions/text.dart';
+import '../definitions/colors.dart';
 
 class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
@@ -35,6 +36,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
           controller: controller,
           tabs: TabBarBuild().obterTabBarList(),
         ),
+        backgroundColor: ColorsDefinitions().obterAppBarColor(),
       ),
       body: TabBarView(
         controller: controller,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../definitions/colors.dart';
 
 class Minicurso extends StatefulWidget {
   @override
@@ -10,7 +11,8 @@ class _MinicursoState extends State<Minicurso> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Palestra')
+        title: Text('Minicurso'),
+        backgroundColor: ColorsDefinitions().obterAppBarColor(),
       ),
     );
   }
