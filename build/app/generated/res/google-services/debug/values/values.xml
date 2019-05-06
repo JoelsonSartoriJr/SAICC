@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">718317606255-l2vlj34o0b2s4o1dm9t5gdb1om3r620g.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://saicix.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">718317606255</string>
+    <string name="google_api_key" translatable="false">AIzaSyBXju6i5bHASRX4mvdbDba4JpbvHL-wiQU</string>
+    <string name="google_app_id" translatable="false">1:718317606255:android:3049c9db748c4b27</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBXju6i5bHASRX4mvdbDba4JpbvHL-wiQU</string>
+    <string name="google_storage_bucket" translatable="false">saicix.appspot.com</string>
+    <string name="project_id" translatable="false">saicix</string>
+</resources>
