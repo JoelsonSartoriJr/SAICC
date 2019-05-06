@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (result.status == FacebookLoginStatus.loggedIn) {
       FirebaseUser user = await _auth.signInWithCredential(credential);
+      Navigator.pushReplacementNamed(context, '/HomePage');
       
     }
   }
