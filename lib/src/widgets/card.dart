@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/palestra.dart';
+import '../screens/palestrante.dart';
 import '../screens/minicurso.dart';
 import '../definitions/colors.dart';
 
@@ -19,16 +20,26 @@ class _CardPalestraState extends State<CardPalestra> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(
-            decoration: new BoxDecoration(
-              image: DecorationImage(
-                image: new NetworkImage(
-                    'https://www.ofitexto.com.br/wp-content/uploads/2019/03/2304-como-montar-uma-palestra.png'),
-                fit: BoxFit.fill,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => Palestra(),
+                ),
+              );
+            },
+            child: Container(
+              decoration: new BoxDecoration(
+                image: DecorationImage(
+                  image: new NetworkImage(
+                      'https://www.ofitexto.com.br/wp-content/uploads/2019/03/2304-como-montar-uma-palestra.png'),
+                  fit: BoxFit.fill,
+                ),
+                shape: BoxShape.rectangle,
               ),
-              shape: BoxShape.rectangle,
+              height: 150.0,
             ),
-            height: 150.0,
           ),
           Container(
             color: Colors.blueAccent,
@@ -52,10 +63,11 @@ class _CardPalestraState extends State<CardPalestra> {
                   ),
                   onTap: () {
                     Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => Palestra(),
-                  ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => Palestra(),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
@@ -70,7 +82,14 @@ class _CardPalestraState extends State<CardPalestra> {
                       fontSize: 15.0,
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => Palestrante(),
+                      ),
+                    );
+                  },
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -117,16 +136,26 @@ class _CardMinicursoState extends State<CardMinicurso> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(
-            decoration: new BoxDecoration(
-              image: DecorationImage(
-                image: new NetworkImage(
-                    'https://blog.even3.com.br/wp-content/uploads/2017/12/Aprenda-de-uma-vez-como-elaborar-um-minicurso-770x470.png'),
-                fit: BoxFit.fill,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => Palestra(),
+                ),
+              );
+            },
+            child: Container(
+              decoration: new BoxDecoration(
+                image: DecorationImage(
+                  image: new NetworkImage(
+                      'https://blog.even3.com.br/wp-content/uploads/2017/12/Aprenda-de-uma-vez-como-elaborar-um-minicurso-770x470.png'),
+                  fit: BoxFit.fill,
+                ),
+                shape: BoxShape.rectangle,
               ),
-              shape: BoxShape.rectangle,
+              height: 150.0,
             ),
-            height: 150.0,
           ),
           Container(
             color: Colors.blueAccent,
@@ -150,10 +179,10 @@ class _CardMinicursoState extends State<CardMinicurso> {
                   ),
                   onTap: () {
                     Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => Minicurso(),
-                  ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => Minicurso(),
+                        ));
                   },
                 ),
                 ListTile(
@@ -168,7 +197,14 @@ class _CardMinicursoState extends State<CardMinicurso> {
                       fontSize: 15.0,
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => Palestra(),
+                      ),
+                    );
+                  },
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
