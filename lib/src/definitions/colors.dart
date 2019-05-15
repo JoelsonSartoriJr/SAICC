@@ -41,4 +41,8 @@ class ColorsDefinitions{
   Color obterPalestranteText(){
     return Colors.grey[800];
   }
+
+  Color obterPalestraText(){
+    return Colors.grey[800];
+  }
 }
