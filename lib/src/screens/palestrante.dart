@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../definitions/colors.dart';
+import '../screens/palestra.dart';
 
 class Palestrante extends StatefulWidget {
   @override

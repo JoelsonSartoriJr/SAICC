@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/palestrante.dart';
 import '../definitions/colors.dart';
 
 class Palestra extends StatefulWidget {

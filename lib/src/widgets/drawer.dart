@@ -72,10 +72,11 @@ class _SideMenuState extends State<SideMenu> {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => Maps(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => Maps(),
+                ),
+              );
             },
           ),
           Divider(
@@ -100,6 +101,22 @@ class _SideMenuState extends State<SideMenu> {
           ),
           ListTile(
             title: Text('Patrocinadores'),
+            leading: Icon(Icons.people),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => Patrocinadores(),
+                  ));
+            },
+          ),
+          Divider(
+            color: Colors.black,
+            height: 5.0,
+          ),
+          ListTile(
+            title: Text('Equipe'),
             leading: Icon(Icons.people),
             onTap: () {
               Navigator.of(context).pop();

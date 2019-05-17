@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../definitions/colors.dart';
 import '../widgets/slivergrid.dart';
+import '../definitions/colors.dart';
 
 class Patrocinadores extends StatefulWidget{
   @override

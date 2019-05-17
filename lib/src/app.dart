@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/splashPage.dart';
-//import 'screens/login.dart';
 import 'screens/home.dart';
+//import 'screens/login.dart';
 import 'definitions/colors.dart';
 import 'definitions/text.dart';
 
