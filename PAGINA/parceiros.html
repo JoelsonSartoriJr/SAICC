@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>INCLUSÃO DADOS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="./main.css">
+</head>
+
+<body>
+    <main class="container-fluid">
+        <div class="topnav" id="myTopnav">
+            <a href="index.html">Cronograma</a>
+            <a href="noticias.html">Notícias</a>
+            <a href="parceiros.html" class="active">Parceiros</a>
+            <a href="patrocinadores.html">Patrocinadores</a>
+        </div>
+        <div class="container">
+            <form action="/">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="imagemtema">Imagem Logo*</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="imagemtema" name="imagemtema" placeholder="Link Da imagem">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="nomeparceiro">Nome Parceiro*</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="nomeparceiro" name="nomeparceiro" placeholder="Nome Parceiro">
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="button" class="btn btn-danger col-3" onclick="criarCard()" value="Salvar">
+                </div>
+            </form>
+            <hr>
+            <h2>Eventos</h2>
+            <div class="card-container">
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-database.js"></script>
+    <!-- Inicializa o firebase -->
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAvvpGRrIpqK4hkYuY5OEum8jESNKs4mMA",
+            authDomain: "saicix.firebaseapp.com",
+            databaseURL: "https://saicix.firebaseio.com",
+            projectId: "saicix",
+            storageBucket: "saicix.appspot.com",
+            messagingSenderId: "718317606255",
+            appId: "1:718317606255:web:3843144e042fedfc"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <!--menu-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <!-- Nosso app -->
+    <script src="./appparceiros.js"></script>
+</body>
+
+</html>
