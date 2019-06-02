@@ -1,4 +1,4 @@
-package com.example.teste;
+package com.example.saicc_ix;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

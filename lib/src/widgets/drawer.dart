@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import '../screens/parceiros.dart';
 import '../screens/patrocinadores.dart';
 import '../screens/maps.dart';
+import '../mixins/parceirosModel.dart';
+import '../mixins/patrocinadoresModel.dart';
+import '../definitions/images.dart';
 
 class SideMenu extends StatefulWidget {
+  List<ParceirosModel> parceiros;
+  List<PatrocinadoresModel> patrocinadores;
+  SideMenu(this.parceiros, this.patrocinadores) : super();
   @override
   _SideMenuState createState() {
     return new _SideMenuState();
@@ -20,10 +26,17 @@ class _SideMenuState extends State<SideMenu> {
         children: <Widget>[
           UserAccountsDrawerHeader(
             //decoration:
-            accountName: Text('Armani'),
-            accountEmail: Text('armany@gmail.com'),
-            currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage('http://i.pravatar.cc/300'),
+            accountName: Text(''),
+            accountEmail: Text(''),
+            //currentAccountPicture: CircleAvatar(
+              //backgroundImage: ImageDefinition().obterDrawerTema(),
+            //),
+            decoration: new BoxDecoration(
+              shape: BoxShape.rectangle,
+              image: new DecorationImage(
+                fit: BoxFit.fill,
+                image: ImageDefinition().obterDrawerTema(),
+              ),
             ),
           ),
           ListTile(
@@ -91,7 +104,8 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => Parceiros(),
+                    builder: (BuildContext context) =>
+                        Parceiros(widget.parceiros),
                   ));
             },
           ),
@@ -107,7 +121,8 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => Patrocinadores(),
+                    builder: (BuildContext context) =>
+                        Patrocinadores(widget.patrocinadores),
                   ));
             },
           ),
@@ -119,12 +134,13 @@ class _SideMenuState extends State<SideMenu> {
             title: Text('Equipe'),
             leading: Icon(Icons.people),
             onTap: () {
-              Navigator.of(context).pop();
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => Patrocinadores(),
-                  ));
+              // Navigator.of(context).pop();
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (BuildContext context) =>
+              //           //Patrocinadores(widget.patrocinadores),
+              //     ));
             },
           )
         ],

@@ -1,25 +1,11 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import '../definitions/colors.dart';
 import '../definitions/images.dart';
 import '../definitions/text.dart';
 
-class SplashScreen extends StatefulWidget{
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-
-}
-
-class _SplashScreenState extends State<SplashScreen>{
-  @override
-  void initState(){
-    super.initState();
-    Timer(Duration(seconds: 4), ()=> Navigator.pushReplacementNamed(context, '/HomePage'));
-  }
-
-  @override
-  Widget build(BuildContext context){
-    final definitions = ColorsDefinitions();
+class Splash{
+  final definitions = ColorsDefinitions();
+  Widget screen(){
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,

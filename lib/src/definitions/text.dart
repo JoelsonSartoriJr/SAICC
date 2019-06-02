@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class TextDefinition{
 
   String obterAppHomeText(){
@@ -9,6 +7,9 @@ class TextDefinition{
   String obterSplashScreenText(){
     return 'SAICC IX';
   }
-
+  
+  String obterFeedFonteText(){
+    return "PET Ciências Computacionais";
+  }
   
 }

@@ -45,4 +45,8 @@ class ColorsDefinitions{
   Color obterPalestraText(){
     return Colors.grey[800];
   }
+
+    Color obterLoadingCircularProgressBar(){
+    return Colors.grey;
+  }
 }

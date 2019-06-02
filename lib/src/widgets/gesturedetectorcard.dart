@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import '../mixins/feedModel.dart';
+import '../definitions/text.dart';
+import '../definitions/images.dart';
 
 class CardFeed extends StatefulWidget {
+  FeedModel model;
+  CardFeed(this.model):super();
   @override
   _CardFeedState createState() {
     return new _CardFeedState();
@@ -20,10 +25,10 @@ class _CardFeedState extends State<CardFeed> {
             new ListTile(
               leading: CircleAvatar(
                 radius: 20,
-                backgroundImage: NetworkImage("http://i.pravatar.cc/300"),
+                backgroundImage: ImageDefinition().obterFeedFonte(),
               ),
               title: new Text(
-                "PET Ciências Computacionais",
+                TextDefinition().obterFeedFonteText(),
                 style: new TextStyle(fontWeight: FontWeight.w400),
               ),
             ),
@@ -31,7 +36,7 @@ class _CardFeedState extends State<CardFeed> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                    "https://images.pexels.com/photos/556416/pexels-photo-556416.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+                    widget.model.imagemtema
                   ),
                   fit: BoxFit.fill,
                 ),
@@ -40,12 +45,11 @@ class _CardFeedState extends State<CardFeed> {
               height: 150.0,
             ),
             ListTile(
-              title: Text("Plantio acontecendo."),
+              title: Text(widget.model.titulo),
             )
           ],
         ),
       ),
     );
-    ;
   }
 }

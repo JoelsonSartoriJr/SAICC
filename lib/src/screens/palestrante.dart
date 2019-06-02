@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import '../definitions/colors.dart';
 import '../screens/palestra.dart';
+import '../mixins/eventosModel.dart';
 
 class Palestrante extends StatefulWidget {
+  EventosModel model;
+  Palestrante(this.model) : super();
   @override
   createState() => _PalestranteState();
 }
@@ -21,11 +24,11 @@ class _PalestranteState extends State<Palestrante> {
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
-                'http://i.pravatar.cc/300',
+                widget.model.imagemperfilautor,
                 fit: BoxFit.cover,
               ),
               title: Text(
-                'Armani',
+                widget.model.autor,
                 style: TextStyle(
                   color: definitions.obterPalestranteNome(),
                   fontSize: 24.0,
@@ -38,8 +41,7 @@ class _PalestranteState extends State<Palestrante> {
             delegate: SliverChildListDelegate(
               [
                 Container(
-                  margin: EdgeInsets.only(
-                      bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
+                  margin: EdgeInsets.only(bottom:2.0, top: 2.0, right: 10.0, left: 10.0),
                   child: Text(
                     'Email:',
                     style: TextStyle(
@@ -51,10 +53,9 @@ class _PalestranteState extends State<Palestrante> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
+                  margin: EdgeInsets.only(bottom:2.0, top: 2.0, right: 10.0, left: 10.0),
                   child: Text(
-                    'armany@gmail.com',
+                    widget.model.autoremail,
                     style: TextStyle(
                       color: definitions.obterPalestranteText(),
                       fontSize: 20.0,
@@ -63,8 +64,7 @@ class _PalestranteState extends State<Palestrante> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
+                  margin: EdgeInsets.only(bottom:2.0, top: 2.0, right: 10.0, left: 10.0),
                   child: Text(
                     'Especializações:',
                     style: TextStyle(
@@ -76,10 +76,9 @@ class _PalestranteState extends State<Palestrante> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
+                  margin: EdgeInsets.only(bottom:2.0, top: 2.0, right: 10.0, left: 10.0),
                   child: Text(
-                    'Graduação em engenharia da computação em 1980; Mestrado em tecnologias para a internet em 1994; Doutorado em internet das coisas em 2001;',
+                    widget.model.autorformacao,
                     style: TextStyle(
                       color: definitions.obterPalestranteText(),
                       fontSize: 20.0,
@@ -88,10 +87,9 @@ class _PalestranteState extends State<Palestrante> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
+                  margin: EdgeInsets.only(bottom:2.0, top: 2.0, right: 10.0, left: 10.0),
                   child: Text(
-                    'Palestras Ministradas:',
+                    'Palestra Ministrada:',
                     style: TextStyle(
                       color: definitions.obterPalestranteText(),
                       fontSize: 20.0,
@@ -101,20 +99,28 @@ class _PalestranteState extends State<Palestrante> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
-                  child: Text(
-                    'Introdução a IOT',
-                    style: TextStyle(
-                      color: definitions.obterPalestranteText(),
-                      fontSize: 20.0,
-                      height: 2.0,
+                  margin: EdgeInsets.only(bottom:2.0, top: 2.0, right: 10.0, left: 10.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (BuildContext context) => Palestra(widget.model),
+                      //   ),
+                      // );
+                    },
+                    child: Text(
+                      widget.model.titulo,
+                      style: TextStyle(
+                        color: definitions.obterPalestranteText(),
+                        fontSize: 20.0,
+                        height: 2.0,
+                      ),
                     ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
+                  margin: EdgeInsets.only(bottom:2.0, top: 2.0, right: 10.0, left: 10.0),
                   child: Text(
                     'Trabalho:',
                     style: TextStyle(
@@ -126,10 +132,9 @@ class _PalestranteState extends State<Palestrante> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
+                  margin: EdgeInsets.only(bottom:2.0, top: 2.0, right: 10.0, left: 10.0),
                   child: Text(
-                    'Gerente de projetos IOT na SAP',
+                    widget.model.autorprofissao,
                     style: TextStyle(
                       color: definitions.obterPalestranteText(),
                       fontSize: 20.0,
