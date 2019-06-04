@@ -100,3 +100,7 @@ function adicionaCardATela(informacao, id) {
     // insere no container
     CARD_CONTAINER.appendChild(card);
 }
+function logout() {
+    firebase.auth().signOut().then(() => {
+    });
+}

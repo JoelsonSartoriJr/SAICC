@@ -213,3 +213,7 @@ function mascara(id) {
     }
     document.getElementById(id).value = valorcampo;
 }
+function logout() {
+    firebase.auth().signOut().then(() => {
+    });
+}
