@@ -16,7 +16,7 @@ class SliverGridBuild {
               decoration: new BoxDecoration(
                 shape: BoxShape.circle,
                 image: new DecorationImage(
-                  fit: BoxFit.fill,
+                  //fit: BoxFit.fill,
                   image: new NetworkImage(parceiros[i].logo),
                 ),
               ),
@@ -57,7 +57,7 @@ class SliverGridBuild {
               decoration: new BoxDecoration(
                 shape: BoxShape.circle,
                 image: new DecorationImage(
-                  fit: BoxFit.fill,
+                  //fit: BoxFit.fill,
                   image: new NetworkImage(simples[i].logo),
                 ),
               ),
@@ -98,7 +98,7 @@ class SliverGridBuild {
               decoration: new BoxDecoration(
                 shape: BoxShape.circle,
                 image: new DecorationImage(
-                  fit: BoxFit.fill,
+                  //fit: BoxFit.fill,
                   image: new NetworkImage(gold[i].logo),
                 ),
               ),
