@@ -1,15 +1,17 @@
-class TextDefinition{
-
-  String obterAppHomeText(){
+class TextDefinition {
+  String obterAppHomeText() {
     return 'SAICC IX';
   }
 
-  String obterSplashScreenText(){
+  String obterSplashScreenText() {
     return 'SAICC IX';
   }
-  
-  String obterFeedFonteText(){
-    return "PET Ciências Computacionais";
+
+  String obterFeedFonteText(String fonte) {
+    if (fonte == '') {
+      return "PET Ciências Computacionais";
+    } else {
+      return fonte;
+    }
   }
-  
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../screens/parceiros.dart';
 import '../screens/patrocinadores.dart';
 import '../screens/maps.dart';
+import '../screens/equipe.dart';
 import '../mixins/parceirosModel.dart';
 import '../mixins/patrocinadoresModel.dart';
 import '../definitions/images.dart';
@@ -29,12 +30,12 @@ class _SideMenuState extends State<SideMenu> {
             accountName: Text(''),
             accountEmail: Text(''),
             //currentAccountPicture: CircleAvatar(
-              //backgroundImage: ImageDefinition().obterDrawerTema(),
+            //backgroundImage: ImageDefinition().obterDrawerTema(),
             //),
             decoration: new BoxDecoration(
               shape: BoxShape.rectangle,
               image: new DecorationImage(
-                fit: BoxFit.fill,
+                //: BoxFit.fill,
                 image: ImageDefinition().obterDrawerTema(),
               ),
             ),
@@ -119,11 +120,12 @@ class _SideMenuState extends State<SideMenu> {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        Patrocinadores(widget.patrocinadores),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      Patrocinadores(widget.patrocinadores),
+                ),
+              );
             },
           ),
           Divider(
@@ -134,13 +136,13 @@ class _SideMenuState extends State<SideMenu> {
             title: Text('Equipe'),
             leading: Icon(Icons.people),
             onTap: () {
-              // Navigator.of(context).pop();
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (BuildContext context) =>
-              //           //Patrocinadores(widget.patrocinadores),
-              //     ));
+              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => Equipe(),
+                ),
+              );
             },
           )
         ],

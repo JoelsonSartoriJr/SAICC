@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import '../definitions/colors.dart';
-import '../mixins/eventosModel.dart';
+import '../mixins/feedModel.dart';
 
-class Palestra extends StatefulWidget{
-  EventosModel model;
-  Palestra(this.model) : super();
+class Noticia extends StatefulWidget {
+  FeedModel model;
+  Noticia(this.model) : super();
   @override
-  createState() => _PalestraState();
+  createState() => _NoticiaState();
 }
-class _PalestraState extends State<Palestra> {
+
+class _NoticiaState extends State<Noticia> {
   @override
   Widget build(BuildContext context) {
     final definitions = ColorsDefinitions();
@@ -25,66 +26,17 @@ class _PalestraState extends State<Palestra> {
                 widget.model.imagemtema,
                 fit: BoxFit.cover,
               ),
-              title: Text(
-                widget.model.tipo + ' - ' + widget.model.hora,
-                textAlign: TextAlign.center,
-              ),
             ),
           ),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Center(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(
-                            bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.favorite),
-                              color: Colors.grey[600],
-                              onPressed: () {},
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 95.0),
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.location_on),
-                              color: Colors.grey[600],
-                              onPressed: () {},
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 95.0),
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.share),
-                              color: Colors.grey[600],
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 Text(
                   widget.model.titulo,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: definitions.obterPalestraText(),
                     fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  widget.model.subtitulo,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: definitions.obterPalestraText(),
-                    fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -115,14 +67,14 @@ class _PalestraState extends State<Palestra> {
                             bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
                         child: CircleAvatar(
                           radius: 30,
-                          backgroundImage: NetworkImage(widget.model.imagemperfilautor),
+                          backgroundImage: NetworkImage(widget.model.imagemfonte),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 20.0),
                       ),
                       Text(
-                        widget.model.autor,
+                        widget.model.fonte,
                         style: TextStyle(
                           color: definitions.obterPalestraText(),
                           fontSize: 20.0,

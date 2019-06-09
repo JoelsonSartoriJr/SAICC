@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../mixins/eventosModel.dart';
 import '../mixins/feedModel.dart';
-import '../mixins/diasModel.dart';
 import '../screens/dia.dart';
 import '../screens/feed.dart';
 

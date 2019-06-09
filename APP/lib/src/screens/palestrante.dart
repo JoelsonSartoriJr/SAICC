@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../definitions/colors.dart';
-import '../screens/palestra.dart';
 import '../mixins/eventosModel.dart';
 
 class Palestrante extends StatefulWidget {
