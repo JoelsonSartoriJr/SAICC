@@ -28,6 +28,8 @@ dependencies:
   #firebase_auth:
   #flutter_auth_buttons: ^0.5.0
   http:
+  flutter_local_notifications:
+  path_provider:
 
 dev_dependencies:
   flutter_launcher_icons: "^0.7.0"
