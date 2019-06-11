@@ -105,7 +105,6 @@ class _CardPalestraState extends State<CardPalestra> {
                       IconButton(
                         icon: Icon(Icons.location_on),
                         onPressed: () {
-                          Navigator.of(context).pop();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
