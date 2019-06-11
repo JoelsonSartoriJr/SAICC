@@ -36,7 +36,7 @@ class _CardPalestraState extends State<CardPalestra> {
                 image: DecorationImage(
                   image: new NetworkImage(
                       widget.model.imagemtema),
-                  fit: BoxFit.fill,
+                  //fit: BoxFit.fill,
                 ),
                 shape: BoxShape.rectangle,
               ),
