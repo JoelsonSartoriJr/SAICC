@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class ColorsDefinitions{
   
   Color obterPrimarySwatch(){
-    return Colors.blueAccent[900];
+    return Colors.red;
   }
 
   Color obterSplashScreenBackground(){
-    return Colors.blueAccent;
+    return Colors.red[900];
   }
 
   Color obterSplashScreenAvatarBackground(){
@@ -27,11 +27,11 @@ class ColorsDefinitions{
   }
 
   Color obterPalestranteBackgroundContainer(){
-    return Colors.blueAccent;
+    return Colors.red[900];
   }
 
   Color obterAppBarColor(){
-    return Colors.blueAccent;
+    return Colors.red[900];
   }
 
   Color obterPalestranteNome(){

@@ -44,7 +44,7 @@ class _CardPalestraState extends State<CardPalestra> {
             ),
           ),
           Container(
-            color: Colors.blueAccent,
+            color: Colors.red.shade900,
             child: Column(
               children: <Widget>[
                 ListTile(
