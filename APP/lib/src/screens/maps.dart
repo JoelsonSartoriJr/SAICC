@@ -35,6 +35,7 @@ class _MapsState extends State<Maps> {
                     icon: Icon(Icons.location_on),
                     color: Colors.red,
                     iconSize: 45.0,
+                    onPressed: (){},
                   ),
                 )
               )

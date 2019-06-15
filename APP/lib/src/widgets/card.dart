@@ -3,6 +3,7 @@ import '../screens/palestra.dart';
 import '../screens/palestrante.dart';
 import '../mixins/eventosModel.dart';
 import '../definitions/colors.dart';
+import '../screens/maps.dart';
 
 class CardPalestra extends StatefulWidget {
   EventosModel model;
@@ -34,9 +35,8 @@ class _CardPalestraState extends State<CardPalestra> {
             child: Container(
               decoration: new BoxDecoration(
                 image: DecorationImage(
-                  image: new NetworkImage(
-                      widget.model.imagemtema),
-                  fit: BoxFit.fill,
+                  image: new NetworkImage(widget.model.imagemtema),
+                  //fit: BoxFit.fill,
                 ),
                 shape: BoxShape.rectangle,
               ),
@@ -67,7 +67,8 @@ class _CardPalestraState extends State<CardPalestra> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => Palestra(widget.model),
+                        builder: (BuildContext context) =>
+                            Palestra(widget.model),
                       ),
                     );
                   },
@@ -75,7 +76,8 @@ class _CardPalestraState extends State<CardPalestra> {
                 ListTile(
                   leading: CircleAvatar(
                     radius: 20,
-                    backgroundImage: NetworkImage(widget.model.imagemperfilautor),
+                    backgroundImage:
+                        NetworkImage(widget.model.imagemperfilautor),
                   ),
                   title: Text(
                     widget.model.autor,
@@ -88,7 +90,8 @@ class _CardPalestraState extends State<CardPalestra> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => Palestrante(widget.model),
+                        builder: (BuildContext context) =>
+                            Palestrante(widget.model),
                       ),
                     );
                   },
@@ -101,7 +104,14 @@ class _CardPalestraState extends State<CardPalestra> {
                       ),
                       IconButton(
                         icon: Icon(Icons.location_on),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => Maps(),
+                            ),
+                          );
+                        },
                       ),
                       IconButton(
                         icon: Icon(Icons.share),
@@ -121,4 +131,3 @@ class _CardPalestraState extends State<CardPalestra> {
     );
   }
 }
-
