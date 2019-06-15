@@ -4,9 +4,10 @@ class ImageDefinition {
   Image obterSplashScreenImage() {
     return Image.asset(
       'assets/logosaicc.png',
-      height: 55,
-      width: 100,
-      fit: BoxFit.scaleDown,
+      height: 140,
+      width: 150,
+      alignment: Alignment.center,
+      fit: BoxFit.contain,
     );
   }
 

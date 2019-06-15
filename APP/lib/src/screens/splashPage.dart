@@ -3,9 +3,9 @@ import '../definitions/colors.dart';
 import '../definitions/images.dart';
 import '../definitions/text.dart';
 
-class Splash{
+class Splash {
   final definitions = ColorsDefinitions();
-  Widget screen(){
+  Widget screen() {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -26,11 +26,11 @@ class Splash{
                     children: <Widget>[
                       CircleAvatar(
                         backgroundColor: definitions.obterSplashScreenAvatarBackground(),
-                        radius: 70,
+                        radius: 80,
                         child: ImageDefinition().obterSplashScreenImage(),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top:10.0),
+                        padding: EdgeInsets.only(top: 10.0),
                       ),
                       Text(
                         TextDefinition().obterSplashScreenText(),
@@ -50,10 +50,11 @@ class Splash{
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     CircularProgressIndicator(
-                      valueColor: new AlwaysStoppedAnimation<Color>(definitions.obterSplashScreenCircularProgressBar())
-                    ),
+                        valueColor: new AlwaysStoppedAnimation<Color>(
+                            definitions
+                                .obterSplashScreenCircularProgressBar())),
                     Padding(
-                      padding: EdgeInsets.only(top:20.0),
+                      padding: EdgeInsets.only(top: 20.0),
                     ),
                     //Text()
                   ],
