@@ -41,6 +41,7 @@ class _CardFeedState extends State<CardFeed> {
             ),
             Container(
               decoration: BoxDecoration(
+                color: Colors.grey[400],
                 image: DecorationImage(
                   image: NetworkImage(widget.model.imagemtema),
                   //fit: BoxFit.fill,

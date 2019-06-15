@@ -34,6 +34,7 @@ class _CardPalestraState extends State<CardPalestra> {
             },
             child: Container(
               decoration: new BoxDecoration(
+                color: Colors.grey[400],
                 image: DecorationImage(
                   image: new NetworkImage(widget.model.imagemtema),
                   //fit: BoxFit.fill,
