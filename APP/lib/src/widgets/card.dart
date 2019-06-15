@@ -52,7 +52,7 @@ class _CardPalestraState extends State<CardPalestra> {
                     widget.model.titulo,
                     style: TextStyle(
                       color: definitions.obterDiaCardText(),
-                      fontSize: 25.0,
+                      fontSize: 20.5,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
