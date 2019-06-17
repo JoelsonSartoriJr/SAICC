@@ -18,7 +18,9 @@ class App extends StatelessWidget {
       home: FutureBuilder(
         future: FirebaseJson().getData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          //print(snapshot.error);
+          if (snapshot.error != null){
+            return Container(child: Text(snapshot.error),);
+          }
           if (snapshot.data == null) {
             return Splash().screen();
           } else {
