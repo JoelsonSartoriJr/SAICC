@@ -22,6 +22,8 @@ function criarCard() {
         autoremail: $("#autoremail").val(),
         autorformacao: $("#autorformacao").val(),
         autorprofissao: $("#autorprofissao").val(),
+        linkedin: $("#linkedin").val(),
+        lattes: $("#lattes").val(),
         imagemperfilautor: $("#imagemperfilautor").val(),
         imagemtema: $("#imagemtema").val(),
         descricao: $("#descricao").val(),
@@ -61,6 +63,8 @@ function criarCard() {
             $("#data").val('');
             $("#imagemtema").val('');
             $("#imagemperfilautor").val('');
+            $("#linkedin").val('');
+            $("#lattes").val('');
         }
         else {
             alert('Os campos data ou hora estão fora do padrão data: dd/mm/aaaa hora: hh:mm')
@@ -150,6 +154,12 @@ function adicionaCardATela(informacao, id) {
     let autorprofissao = document.createElement("p");
     autorprofissao.classList.add('card-text');
     autorprofissao.innerText = 'Profissão: ' + informacao.autorprofissao;
+    let autorlattes = document.createElement("p");
+    autorlattes.classList.add('card-text');
+    autorlattes.innerText = 'Link Lattes: ' + informacao.lattes;
+    let autorlinkedin = document.createElement("p");
+    autorlinkedin.classList.add('card-text');
+    autorlinkedin.innerText = 'Link LinkedIn: ' + informacao.autorlinkedin;
     let descricao = document.createElement("p");
     descricao.classList.add('card-text');
     descricao.innerText = 'Descrição: ' + informacao.descricao;
