@@ -10,7 +10,7 @@ var ref = firebase.database().ref('organizacao/');
 function criarCard() {
     var card = {
         nome: $("#nomeorganizador").val(),
-        logo: $("#imagemeperfilorganizador").val(),
+        imagem: $("#imagemeperfilorganizador").val(),
     }
 
     if (card.nome != '' && card.logo != '') {
