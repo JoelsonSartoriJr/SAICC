@@ -12,6 +12,8 @@ class EventosModel {
   String imagemperfilautor;
   String imagemtema;
   String subtitulo;
+  String lattes;
+  String linkedin;
   String tipo;
   String titulo;
 
@@ -29,6 +31,8 @@ class EventosModel {
       this.hora,
       this.imagemperfilautor,
       this.imagemtema,
+      this.lattes,
+      this.linkedin,
       this.subtitulo,
       this.titulo);
 
@@ -45,6 +49,8 @@ class EventosModel {
     descricao = parsedJson['descricao'];
     hora = parsedJson['hora'];
     imagemperfilautor = parsedJson['imagemperfilautor'];
+    lattes = parsedJson['lattes'];
+    linkedin = parsedJson['linkedin'];
     subtitulo = parsedJson['subtitulo'];
     titulo = parsedJson['titulo'];
     imagemtema = parsedJson['imagemtema'];

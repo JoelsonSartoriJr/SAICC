@@ -3,6 +3,7 @@ import '../screens/palestra.dart';
 import '../screens/palestrante.dart';
 import '../mixins/eventosModel.dart';
 import '../definitions/colors.dart';
+import '../definitions/images.dart';
 import '../screens/maps.dart';
 
 class CardPalestra extends StatefulWidget {
@@ -36,7 +37,7 @@ class _CardPalestraState extends State<CardPalestra> {
               decoration: new BoxDecoration(
                 color: Colors.grey[400],
                 image: DecorationImage(
-                  image: new NetworkImage(widget.model.imagemtema),
+                  image: ImageDefinition().obterPalestraImage(widget.model.imagemtema),
                   //fit: BoxFit.fill,
                 ),
                 shape: BoxShape.rectangle,
@@ -78,7 +79,7 @@ class _CardPalestraState extends State<CardPalestra> {
                   leading: CircleAvatar(
                     radius: 20,
                     backgroundImage:
-                        NetworkImage(widget.model.imagemperfilautor),
+                        ImageDefinition().obterPersonImage(widget.model.imagemperfilautor),
                   ),
                   title: Text(
                     widget.model.autor,

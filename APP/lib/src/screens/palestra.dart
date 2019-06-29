@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import '../definitions/colors.dart';
+import '../definitions/images.dart';
 import '../mixins/eventosModel.dart';
+import '../screens/maps.dart';
 
-class Palestra extends StatefulWidget{
+class Palestra extends StatefulWidget {
   EventosModel model;
   Palestra(this.model) : super();
   @override
   createState() => _PalestraState();
 }
+
 class _PalestraState extends State<Palestra> {
   @override
   Widget build(BuildContext context) {
@@ -21,10 +24,8 @@ class _PalestraState extends State<Palestra> {
             pinned: true,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
-                widget.model.imagemtema,
-                fit: BoxFit.cover,
-              ),
+              background: ImageDefinition()
+                  .obterPalestraImageWidget(widget.model.imagemtema),
               title: Text(
                 widget.model.tipo + ' - ' + widget.model.hora,
                 textAlign: TextAlign.center,
@@ -36,36 +37,35 @@ class _PalestraState extends State<Palestra> {
               [
                 Center(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(
-                            bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.favorite),
-                              color: Colors.grey[600],
-                              onPressed: () {},
+                      IconButton(
+                        icon: Icon(Icons.favorite),
+                        color: Colors.grey[600],
+                        onPressed: () {},
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 95.0),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.location_on),
+                        color: Colors.grey[600],
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => Maps(),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 95.0),
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.location_on),
-                              color: Colors.grey[600],
-                              onPressed: () {},
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 95.0),
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.share),
-                              color: Colors.grey[600],
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
+                          );
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 95.0),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.share),
+                        color: Colors.grey[600],
+                        onPressed: () {},
                       ),
                     ],
                   ),
@@ -96,7 +96,7 @@ class _PalestraState extends State<Palestra> {
                     style: TextStyle(
                       color: definitions.obterPalestraText(),
                       fontSize: 17.0,
-                      height: 2.0,
+                      height: 1.5,
                     ),
                     textAlign: TextAlign.justify,
                   ),
@@ -115,7 +115,8 @@ class _PalestraState extends State<Palestra> {
                             bottom: 2.0, top: 2.0, right: 10.0, left: 10.0),
                         child: CircleAvatar(
                           radius: 30,
-                          backgroundImage: NetworkImage(widget.model.imagemperfilautor),
+                          backgroundImage: ImageDefinition()
+                              .obterPersonImage(widget.model.imagemperfilautor),
                         ),
                       ),
                       Padding(

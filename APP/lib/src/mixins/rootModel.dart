@@ -3,6 +3,7 @@ import 'eventosModel.dart';
 import 'feedModel.dart';
 import 'parceirosModel.dart';
 import 'patrocinadoresModel.dart';
+import 'organizacaoModel.dart';
 
 class RootModel{
   DiasModel dias;
@@ -10,8 +11,9 @@ class RootModel{
   List<FeedModel> feed = List<FeedModel>();
   List<ParceirosModel> parceiros = List<ParceirosModel>();
   List<PatrocinadoresModel> patrocinadores = List<PatrocinadoresModel>();
+  List<OrganizacaoModel> organizacao = List<OrganizacaoModel>();
 
-  RootModel(this.dias, this.eventos, this.feed, this.parceiros, this.patrocinadores);
+  RootModel(this.dias, this.eventos, this.feed, this.parceiros, this.patrocinadores, this.organizacao);
 
   RootModel.fromJson(Map<String, dynamic> parsedJson){
     dias = DiasModel.fromJson(parsedJson['dias']);
@@ -39,6 +41,13 @@ class RootModel{
     for(int a = 0; a< keys.length; a++){
       Map<String, dynamic> parsed = parsedEvent[keys[a]];
       patrocinadores.add(PatrocinadoresModel.fromJson(parsed, keys[a]));
+    } 
+
+    parsedEvent = parsedJson['organizacao'];
+    keys = parsedEvent.keys.toList();
+    for(int a = 0; a< keys.length; a++){
+      Map<String, dynamic> parsed = parsedEvent[keys[a]];
+      organizacao.add(OrganizacaoModel.fromJson(parsed, keys[a]));
     } 
   }
 }

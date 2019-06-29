@@ -1,8 +1,10 @@
+import 'package:SAICCIX/src/mixins/organizacaoModel.dart';
 import 'package:flutter/material.dart';
 import '../screens/parceiros.dart';
 import '../screens/patrocinadores.dart';
 import '../screens/maps.dart';
-import '../screens/equipe.dart';
+import '../screens/desenvolvedores.dart';
+import '../screens/organizacao.dart';
 import '../mixins/parceirosModel.dart';
 import '../mixins/patrocinadoresModel.dart';
 import '../definitions/images.dart';
@@ -10,7 +12,8 @@ import '../definitions/images.dart';
 class SideMenu extends StatefulWidget {
   List<ParceirosModel> parceiros;
   List<PatrocinadoresModel> patrocinadores;
-  SideMenu(this.parceiros, this.patrocinadores) : super();
+  List<OrganizacaoModel> organizacao;
+  SideMenu(this.parceiros, this.patrocinadores, this.organizacao) : super();
   @override
   _SideMenuState createState() {
     return new _SideMenuState();
@@ -133,14 +136,31 @@ class _SideMenuState extends State<SideMenu> {
             height: 5.0,
           ),
           ListTile(
-            title: Text('Equipe'),
+            title: Text('Organizadores'),
             leading: Icon(Icons.people),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => Equipe(),
+                  builder: (BuildContext context) => Organizacao(widget.organizacao),
+                ),
+              );
+            },
+          ),
+          Divider(
+            color: Colors.black,
+            height: 5.0,
+          ),
+          ListTile(
+            title: Text('Desenvolvedores'),
+            leading: Icon(Icons.people),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => Desenvolvedores(),
                 ),
               );
             },

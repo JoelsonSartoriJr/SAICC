@@ -1,4 +1,4 @@
-import 'package:SAICCIX/src/mixins/rootModel.dart';
+import 'mixins/rootModel.dart';
 import 'package:flutter/material.dart';
 import 'screens/splashPage.dart';
 import 'screens/home.dart';
@@ -18,8 +18,11 @@ class App extends StatelessWidget {
       home: FutureBuilder(
         future: FirebaseJson().getData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.error != null){
-            return Container(child: Text(snapshot.error),);
+          if (snapshot.error != null) {
+            return SimpleDialog(
+              title: const Text('Algo saiu errado!'),
+              children: <Widget>[Text(snapshot.error)],
+            );
           }
           if (snapshot.data == null) {
             return Splash().screen();

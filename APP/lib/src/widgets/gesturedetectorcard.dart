@@ -32,7 +32,7 @@ class _CardFeedState extends State<CardFeed> {
               leading: CircleAvatar(
                 radius: 20,
                 backgroundImage:
-                    ImageDefinition().obterFeedFonte(widget.model.imagemfonte),
+                    ImageDefinition().obterPersonImage(widget.model.imagemfonte),
               ),
               title: new Text(
                 TextDefinition().obterFeedFonteText(widget.model.fonte),
@@ -43,7 +43,7 @@ class _CardFeedState extends State<CardFeed> {
               decoration: BoxDecoration(
                 color: Colors.grey[400],
                 image: DecorationImage(
-                  image: NetworkImage(widget.model.imagemtema),
+                  image: ImageDefinition().obterPalestraImage(widget.model.imagemtema),
                   //fit: BoxFit.fill,
                 ),
                 shape: BoxShape.rectangle,

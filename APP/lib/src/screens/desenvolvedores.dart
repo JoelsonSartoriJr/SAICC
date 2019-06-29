@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import '../definitions/colors.dart';
 
-class Equipe extends StatefulWidget {
+class Desenvolvedores extends StatefulWidget {
   @override
-  createState() => _EquipeState();
+  createState() => _DesenvolvedoresState();
 }
 
-class _EquipeState extends State<Equipe> {
+class _DesenvolvedoresState extends State<Desenvolvedores> {
   @override
   Widget build(BuildContext context) {
     final definitions = ColorsDefinitions();
     return Scaffold(
         appBar: new AppBar(
-          title: new Text('Equipe'),
+          title: new Text('Desenvolvedores'),
           backgroundColor: definitions.obterAppBarColor(),
         ),
         body: Column(

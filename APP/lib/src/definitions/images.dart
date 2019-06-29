@@ -11,12 +11,41 @@ class ImageDefinition {
     );
   }
 
-  NetworkImage obterFeedFonte(String imagem) {
+  ImageProvider obterPersonImage(String imagem) {
     if (imagem == '') {
-      return NetworkImage(
-          "https://scontent.fpet2-1.fna.fbcdn.net/v/t1.0-9/40888477_1954333701294842_820183408863870976_n.png?_nc_cat=107&_nc_ht=scontent.fpet2-1.fna&oh=3314adf59daaf98ab0999aa560b04800&oe=5D513903");
+      return AssetImage('assets/temp_person.png');
     } else {
       return NetworkImage(imagem);
+    }
+  }
+
+  Widget obterPersonImageWidget(String imagem) {
+    if (imagem == '') {
+      return Image.asset(
+        'assets/temp_person.png',
+        fit: BoxFit.cover,
+      );
+    } else {
+      return Image.network(
+        imagem,
+        fit: BoxFit.cover,
+      );
+    }
+  }
+
+  ImageProvider obterPalestraImage(String imagem) {
+    if (imagem == '') {
+      return AssetImage('assets/temp_palestra.jpg');
+    } else {
+      return NetworkImage(imagem);
+    }
+  }
+
+  Widget obterPalestraImageWidget(String imagem) {
+    if (imagem == '') {
+      return Image.asset('assets/temp_palestra.jpg', fit: BoxFit.cover);
+    } else {
+      return Image.network(imagem, fit: BoxFit.cover);
     }
   }
 

@@ -46,7 +46,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         children: TabBarBuild().obterTabBarItensList(
             widget.model.dias.dia, widget.model.eventos, widget.model.feed),
       ),
-      drawer: SideMenu(widget.model.parceiros, widget.model.patrocinadores),
+      drawer: SideMenu(widget.model.parceiros, widget.model.patrocinadores, widget.model.organizacao),
     );
   }
 }
