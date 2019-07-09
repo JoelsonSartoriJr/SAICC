@@ -8,8 +8,8 @@ var CARD_CONTAINER = document.getElementsByClassName('card-container')[0];
      * ref(): url em string para referencia do caminho do banco
      * set(): metodo que cria dados na url passada
      */
-var ref = firebase.database().ref('eventos/');
-var ref1 = firebase.database().ref('dias/');
+var ref = firebase.database().ref('conteudo/eventos/');
+var ref1 = firebase.database().ref('conteudo/dias/');
 var datas = []
 /**
  * Botão para cria um card no card-contaier

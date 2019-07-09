@@ -1,6 +1,6 @@
 
 var CARD_CONTAINER = document.getElementsByClassName('card-container')[0];
-var ref = firebase.database().ref('feed/');
+var ref = firebase.database().ref('conteudo/feed/');
 
 function criarCard() {
     var card = {

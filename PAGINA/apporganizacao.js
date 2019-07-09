@@ -3,7 +3,7 @@
  */
 var CARD_CONTAINER = document.getElementsByClassName('card-container')[0];
 
-var ref = firebase.database().ref('organizacao/');
+var ref = firebase.database().ref('conteudo/organizacao/');
 /**
  * Botão para cria um card no card-contaier
  */
