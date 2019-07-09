@@ -46,7 +46,19 @@ class ColorsDefinitions{
     return Colors.grey[800];
   }
 
-    Color obterLoadingCircularProgressBar(){
+  Color obterLoadingCircularProgressBar(){
     return Colors.grey;
+  }
+
+  Color obterPalestraIcon(){
+    return Colors.grey[600];
+  }
+
+  Color obterCardBackground(){
+    return Colors.grey[400];
+  }
+
+  Color obterCardContainerColor(){
+    return Colors.red.shade900;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 class FeedModel {
   String key;
   String descricao;
@@ -15,5 +16,14 @@ class FeedModel {
     imagemtema = parsedJson['imagemtema'];
     fonte = parsedJson['fonte'];
     imagemfonte = parsedJson['imagemfonte'];
+  }
+
+  FeedModel.fromSnapshot(DataSnapshot snapshot, String id) {
+    key = id;
+    descricao = snapshot.value['descricao'];
+    titulo = snapshot.value['titulo'];
+    imagemtema = snapshot.value['imagemtema'];
+    fonte = snapshot.value['fonte'];
+    imagemfonte = snapshot.value['imagemfonte'];
   }
 }

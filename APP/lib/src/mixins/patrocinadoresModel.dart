@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 class PatrocinadoresModel {
   String key;
   String logo;
@@ -11,5 +12,12 @@ class PatrocinadoresModel {
     logo = parsedJson['logo'];
     tipo = parsedJson['tipo'];
     nome = parsedJson['nome'];
+  }
+
+  PatrocinadoresModel.fromSnapshot(DataSnapshot snapshot, String id) {
+    key = id;
+    logo = snapshot.value['logo'];
+    tipo = snapshot.value['tipo'];
+    nome = snapshot.value['nome'];
   }
 }

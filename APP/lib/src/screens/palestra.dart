@@ -12,9 +12,16 @@ class Palestra extends StatefulWidget {
 }
 
 class _PalestraState extends State<Palestra> {
+  final definitions = ColorsDefinitions();
+  Color corNotifi;
+  bool notificar = false;
   @override
   Widget build(BuildContext context) {
-    final definitions = ColorsDefinitions();
+    if (notificar) {
+      corNotifi = Colors.red.shade900.withOpacity(0.6);
+    } else {
+      corNotifi = definitions.obterPalestraIcon();
+    }
     return Scaffold(
       body: CustomScrollView(
         cacheExtent: 10.0,
@@ -41,15 +48,26 @@ class _PalestraState extends State<Palestra> {
                     children: <Widget>[
                       IconButton(
                         icon: Icon(Icons.favorite),
-                        color: Colors.grey[600],
-                        onPressed: () {},
+                        color: corNotifi,
+                        onPressed: () {
+                          //widget.model.key;
+                           setState(() {
+                            if (!notificar) {
+                              corNotifi = Colors.red.shade900.withOpacity(0.6);
+                              notificar = true;
+                            } else {
+                              corNotifi = definitions.obterPalestraIcon();
+                              notificar = false;
+                            }
+                          });
+                        },
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 95.0),
                       ),
                       IconButton(
                         icon: Icon(Icons.location_on),
-                        color: Colors.grey[600],
+                        color: definitions.obterPalestraIcon(),
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -64,7 +82,7 @@ class _PalestraState extends State<Palestra> {
                       ),
                       IconButton(
                         icon: Icon(Icons.share),
-                        color: Colors.grey[600],
+                        color: definitions.obterPalestraIcon(),
                         onPressed: () {},
                       ),
                     ],

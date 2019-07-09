@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 class ParceirosModel {
   String key;
   String logo;
@@ -9,5 +10,11 @@ class ParceirosModel {
     key = id;
     logo = parsedJson['logo'];
     nome = parsedJson['nome'];
+  }
+
+  ParceirosModel.fromSnapshot(DataSnapshot snapshot, String id) {
+    key = id;
+    logo = snapshot.value['logo'];
+    nome = snapshot.value['nome'];
   }
 }

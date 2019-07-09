@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import '../screens/palestra.dart';
 import '../screens/palestrante.dart';
@@ -8,7 +9,8 @@ import '../screens/maps.dart';
 
 class CardPalestra extends StatefulWidget {
   EventosModel model;
-  CardPalestra(this.model) : super();
+  DatabaseReference ref;
+  CardPalestra(this.model, this.ref) : super();
   @override
   _CardPalestraState createState() {
     return new _CardPalestraState();
@@ -17,8 +19,15 @@ class CardPalestra extends StatefulWidget {
 
 class _CardPalestraState extends State<CardPalestra> {
   final definitions = ColorsDefinitions();
+  Color corNotifi;
+  bool notificar = false;
   @override
   Widget build(BuildContext context) {
+    if (notificar) {
+      corNotifi = Colors.white.withOpacity(0.6);
+    } else {
+      corNotifi = Colors.black.withOpacity(0.4);
+    }
     return Card(
       margin: EdgeInsets.all(10.0),
       child: Column(
@@ -35,9 +44,10 @@ class _CardPalestraState extends State<CardPalestra> {
             },
             child: Container(
               decoration: new BoxDecoration(
-                color: Colors.grey[400],
+                color: definitions.obterCardBackground(),
                 image: DecorationImage(
-                  image: ImageDefinition().obterPalestraImage(widget.model.imagemtema),
+                  image: ImageDefinition()
+                      .obterPalestraImage(widget.model.imagemtema),
                   //fit: BoxFit.fill,
                 ),
                 shape: BoxShape.rectangle,
@@ -46,7 +56,7 @@ class _CardPalestraState extends State<CardPalestra> {
             ),
           ),
           Container(
-            color: Colors.red.shade900,
+            color: definitions.obterCardContainerColor(),
             child: Column(
               children: <Widget>[
                 ListTile(
@@ -78,8 +88,8 @@ class _CardPalestraState extends State<CardPalestra> {
                 ListTile(
                   leading: CircleAvatar(
                     radius: 20,
-                    backgroundImage:
-                        ImageDefinition().obterPersonImage(widget.model.imagemperfilautor),
+                    backgroundImage: ImageDefinition()
+                        .obterPersonImage(widget.model.imagemperfilautor),
                   ),
                   title: Text(
                     widget.model.autor,
@@ -101,8 +111,19 @@ class _CardPalestraState extends State<CardPalestra> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       IconButton(
+                        color: corNotifi,
                         icon: Icon(Icons.favorite),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            if (!notificar) {
+                              corNotifi = Colors.white.withOpacity(0.6);
+                              notificar = true;
+                            } else {
+                              corNotifi = Colors.black.withOpacity(0.4);
+                              notificar = false;
+                            }
+                          });
+                        },
                       ),
                       IconButton(
                         icon: Icon(Icons.location_on),

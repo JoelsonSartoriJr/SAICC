@@ -1,7 +1,8 @@
 import 'mixins/rootModel.dart';
 import 'package:flutter/material.dart';
 import 'screens/splashPage.dart';
-import 'screens/home.dart';
+import 'authentication/mapping.dart';
+import 'authentication/authentication.dart';
 import 'definitions/colors.dart';
 import 'definitions/text.dart';
 import 'sources/firebase.dart';
@@ -16,18 +17,23 @@ class App extends StatelessWidget {
         primarySwatch: ColorsDefinitions().obterPrimarySwatch(),
       ),
       home: FutureBuilder(
-        future: FirebaseJson().getData(),
+        future: FirebaseDatabaseSnapshot().getData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.error != null) {
-            return SimpleDialog(
-              title: const Text('Algo saiu errado!'),
-              children: <Widget>[Text(snapshot.error)],
-            );
+            print(snapshot.error);
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SimpleDialog(
+                    title: const Text('Algo saiu errado!'),
+                    children: <Widget>[Text(snapshot.error.toString())],
+                  );
+                });
           }
           if (snapshot.data == null) {
             return Splash().screen();
           } else {
-            return Home(snapshot.data);
+            return MappingPage(model: snapshot.data, auth: Auth(),);
           }
         },
       ),

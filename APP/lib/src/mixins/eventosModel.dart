@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 class EventosModel {
   String key;
   String autor;
@@ -54,5 +55,25 @@ class EventosModel {
     subtitulo = parsedJson['subtitulo'];
     titulo = parsedJson['titulo'];
     imagemtema = parsedJson['imagemtema'];
+  }
+
+  EventosModel.fromSnapshot(DataSnapshot snapshot, String id) {
+    key = id;
+    tipo = snapshot.value['tipo'];
+    autor = snapshot.value['autor'];
+    autoremail = snapshot.value['autoremail'];
+    autorformacao = snapshot.value['autorformacao'];
+    autorprofissao = snapshot.value['autorprofissao'];
+    avaliacao = snapshot.value['avaliacao'];
+    contadoravaliacoes = snapshot.value['contadoravaliacoes'];
+    data = snapshot.value['data'];
+    descricao = snapshot.value['descricao'];
+    hora = snapshot.value['hora'];
+    imagemperfilautor = snapshot.value['imagemperfilautor'];
+    lattes = snapshot.value['lattes'];
+    linkedin = snapshot.value['linkedin'];
+    subtitulo = snapshot.value['subtitulo'];
+    titulo = snapshot.value['titulo'];
+    imagemtema = snapshot.value['imagemtema'];
   }
 }

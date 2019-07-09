@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../authentication/authentication.dart';
 import '../widgets/drawer.dart';
 import '../widgets/tabbar.dart';
 import '../mixins/rootModel.dart';
@@ -6,8 +8,12 @@ import '../definitions/text.dart';
 import '../definitions/colors.dart';
 
 class Home extends StatefulWidget {
+  final FirebaseUser user;
   final RootModel model;
-  Home(this.model) : super();
+  final AuthImplementation auth;
+  final VoidCallback onSignedOut;
+
+  Home({this.model, this.auth, this.onSignedOut, this.user});
   _HomeState createState() => _HomeState();
 }
 
@@ -44,9 +50,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: controller,
         children: TabBarBuild().obterTabBarItensList(
-            widget.model.dias.dia, widget.model.eventos, widget.model.feed),
+            widget.model.dias.dia, widget.model.eventos, widget.model.feed, widget.model.referencia),
       ),
-      drawer: SideMenu(widget.model.parceiros, widget.model.patrocinadores, widget.model.organizacao),
+      drawer: SideMenu(widget.model.parceiros, widget.model.patrocinadores, widget.model.organizacao, widget.model.referencia, widget.auth, widget.onSignedOut, widget.user),
     );
   }
 }

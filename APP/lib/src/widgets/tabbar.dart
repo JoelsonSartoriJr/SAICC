@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import '../mixins/eventosModel.dart';
 import '../mixins/feedModel.dart';
@@ -17,11 +18,11 @@ class TabBarBuild {
     }
     return lista;
   }
-  List<Widget> obterTabBarItensList(List<String> dia, List<EventosModel> eventos, List<FeedModel> feed) {
+  List<Widget> obterTabBarItensList(List<String> dia, List<EventosModel> eventos, List<FeedModel> feed, DatabaseReference ref) {
     List<Widget> lista = new List<Widget>();
     lista.add(Feed(feed));
     for (int a = 0; a < dia.length; a++) {
-      lista.add(Dia(dia[a], eventos));
+      lista.add(Dia(dia[a], eventos, ref));
     }
     return lista;
   }
