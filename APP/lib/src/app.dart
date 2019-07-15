@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'screens/splashPage.dart';
 import 'authentication/mapping.dart';
 import 'authentication/authentication.dart';
+import 'authentication/authprovider.dart';
 import 'definitions/colors.dart';
 import 'definitions/text.dart';
 import 'sources/firebase.dart';
@@ -11,7 +12,9 @@ class App extends StatelessWidget {
   RootModel model;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return AuthProvider(
+      auth: Auth(),
+      child: MaterialApp(
       title: TextDefinition().obterAppHomeText(),
       theme: ThemeData(
         primarySwatch: ColorsDefinitions().obterPrimarySwatch(),
@@ -33,9 +36,10 @@ class App extends StatelessWidget {
           if (snapshot.data == null) {
             return Splash().screen();
           } else {
-            return MappingPage(model: snapshot.data, auth: Auth(),);
+            return MappingPage(model: snapshot.data);
           }
         },
+      ),
       ),
     );
   }

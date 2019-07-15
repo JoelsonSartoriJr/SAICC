@@ -20,7 +20,7 @@ class TabBarBuild {
   }
   List<Widget> obterTabBarItensList(List<String> dia, List<EventosModel> eventos, List<FeedModel> feed, DatabaseReference ref) {
     List<Widget> lista = new List<Widget>();
-    lista.add(Feed(feed));
+    lista.add(Feed(feed, ref));
     for (int a = 0; a < dia.length; a++) {
       lista.add(Dia(dia[a], eventos, ref));
     }

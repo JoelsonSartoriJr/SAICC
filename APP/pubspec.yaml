@@ -26,12 +26,12 @@ dependencies:
   cupertino_icons: ^0.1.2
   firebase_database: 
   firebase_auth: 
-  #firebase_core:
   firebase_messaging: 
-  #flutter_auth_buttons: ^0.5.0
+  firebase_storage:
   http:
-  #path_provider:
   url_launcher:
+  toast:
+  image_picker:
 
 dev_dependencies:
   flutter_launcher_icons: "^0.7.0"
@@ -48,7 +48,7 @@ flutter_icons:
 # The following section is specific to Flutter.
 flutter:
   assets: 
-    [assets/logosaicc.png, assets/logooriginal.png, assets/icon_lattes.png, assets/linkedin.png, assets/temp_palestra.jpg, assets/temp_person.png]
+    [assets/logosaicc.png, assets/logooriginal.png, assets/icon_lattes.png, assets/linkedin.png, assets/temp_palestra.jpg, assets/temp_person.png, assets/temp_personv_1.png]
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

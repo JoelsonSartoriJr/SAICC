@@ -1,83 +1,137 @@
+import 'dart:io';
+import 'package:SAICCIX/src/definitions/images.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:toast/toast.dart';
+import 'package:image_picker/image_picker.dart';
 import '../authentication/authentication.dart';
+import '../authentication/authprovider.dart';
 import '../mixins/rootModel.dart';
 import '../screens/home.dart';
 
 class Login extends StatefulWidget {
   final RootModel model;
-  final AuthImplementation auth;
   final VoidCallback onSignedIn;
 
-  Login({this.model, this.auth, this.onSignedIn});
+  Login({this.model, this.onSignedIn});
 
   @override
   createState() => _LoginState();
 }
 
+class EmailFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'Email não pode ser vazio' : null;
+  }
+}
+
+class PasswordFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'Senha não pode ser vazia' : null;
+  }
+}
+
 enum FormType { login, register }
 
 class _LoginState extends State<Login> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   FormType _formType = FormType.login;
   String _email = "";
   String _password = "";
   String _label = 'Login';
+  String _label1 = 'Criar Conta';
   FirebaseUser _user;
+  ImageProvider _perfil = ImageDefinition().obterLogin();
+  File _file;
+
+  Future getImage() async {
+    try {
+      var file = await ImagePicker.pickImage(source: ImageSource.gallery);
+      setState(() {
+        _file = file;
+        _perfil = FileImage(file);
+      });
+    } catch (e) {
+      //print(e);
+    }
+  }
 
   bool validateAndSave() {
-    final form = formKey.currentState;
-
+    final FormState form = formKey.currentState;
     if (form.validate()) {
       form.save();
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
-  void validateAndSubmit() async {
+  Future<void> validateAndSubmit() async {
     if (validateAndSave()) {
       try {
+        final AuthImplementation auth = AuthProvider.of(context).auth;
         if (_formType == FormType.login) {
-          _user = await widget.auth.signIn(_email, _password);
-          print(_user);
+          _user = await auth.signIn(_email, _password);
         } else {
-          _user = await widget.auth.signUp(_email, _password);
-          print(_user);
+          _user = await auth.createUser(_email, _password, _file);
         }
         widget.onSignedIn();
       } catch (e) {
-        print(e.toString());
+        getErrors(e.toString());
       }
     }
   }
 
-  void validateAndResetPassword() async {
+  Future<void> validateAndResetPassword() async {
     if (validateAndSave()) {
       try {
-        await widget.auth.requestNewPassword(_email);
+        final AuthImplementation auth = AuthProvider.of(context).auth;
+        await auth.requestNewPassword(_email);
       } catch (e) {
-        print(e.toString());
+        getErrors(e.toString());
       }
+    }
+  }
+
+  void getErrors(String erro) {
+    if (erro.contains('ERROR_WRONG_PASSWORD')) {
+      Toast.show('Senha inválida', context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    } else if (erro.contains('ERROR_INVALID_EMAIL')) {
+      Toast.show('Email inválido', context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    } else if (erro.contains('ERROR_USER_NOT_FOUND')) {
+      Toast.show('Email não cadastrado', context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    } else if (erro.contains('ERROR_USER_DISABLED')) {
+      Toast.show('Usuário desativado', context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    } else if (erro.contains('ERROR_TOO_MANY_REQUESTS')) {
+      Toast.show(
+          'Foram realizadas muitas requisições seguidas aguarde e tente novamente mais tarde',
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.BOTTOM);
+    } else if (erro.contains('ERROR_OPERATION_NOT_ALLOWED')) {
+      Toast.show('Operação não permitida', context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }
   }
 
   void moveToRegister() {
     formKey.currentState.reset();
-
     setState(() {
-      _label = 'Registrar';
       _formType = FormType.register;
+      _label = 'Registrar';
+      _label1 = 'Fazer Login';
     });
   }
 
   void moveToLogin() {
     formKey.currentState.reset();
-
     setState(() {
-      _label = 'Login';
       _formType = FormType.login;
+      _label = 'Login';
+      _label1 = 'Criar Conta';
     });
   }
 
@@ -103,19 +157,38 @@ class _LoginState extends State<Login> {
                               bottomLeft: Radius.circular(70),
                             ),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                width: MediaQuery.of(context).size.width / 2.5,
-                                height: MediaQuery.of(context).size.height / 3,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Image.asset('assets/logooriginal.png'),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height / 2.5,
+                            child: FlatButton(
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: <Widget>[
+                                  CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 80,
+                                    //child: _perfil,
+                                    backgroundImage: _perfil,
+                                  ),
+                                  Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.grey[500],
+                                    ),
+                                    margin:
+                                        EdgeInsets.only(top: 100, left: 100),
+                                    child: Icon(
+                                      Icons.add_a_photo,
+                                      size: 30,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                              onPressed: getImage,
+                            ),
                           ),
                         ),
                         Container(
@@ -145,13 +218,9 @@ class _LoginState extends State<Login> {
                                   decoration: InputDecoration(
                                       hintText: 'Email',
                                       icon: Icon(Icons.email)),
-                                  validator: (value) {
-                                    return value.isEmpty
-                                        ? 'Email obrigatório.'
-                                        : null;
-                                  },
-                                  onSaved: (value) {
-                                    return _email = value;
+                                  validator: EmailFieldValidator.validate,
+                                  onSaved: (String value) {
+                                    return _email = value.trim();
                                   },
                                 ),
                               ),
@@ -186,13 +255,9 @@ class _LoginState extends State<Login> {
                                   decoration: InputDecoration(
                                       hintText: 'Senha',
                                       icon: Icon(Icons.vpn_key)),
-                                  validator: (value) {
-                                    return value.isEmpty
-                                        ? 'Senha obrigatória.'
-                                        : null;
-                                  },
-                                  onSaved: (value) {
-                                    return _email = value;
+                                  validator: PasswordFieldValidator.validate,
+                                  onSaved: (String value) {
+                                    return _password = value.trim();
                                   },
                                 ),
                               ),
@@ -207,7 +272,11 @@ class _LoginState extends State<Login> {
                                       style: TextStyle(
                                           fontSize: 12.5, color: Colors.grey),
                                     ),
-                                    onPressed: validateAndResetPassword,
+                                    onPressed: (() {
+                                      FocusScope.of(context)
+                                          .requestFocus(new FocusNode());
+                                      validateAndResetPassword();
+                                    }),
                                   ),
                                 ),
                               ),
@@ -215,24 +284,28 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         Container(
-                            width: MediaQuery.of(context).size.width / 1.2,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.red.shade900,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40)),
+                          width: MediaQuery.of(context).size.width / 1.2,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.red.shade900,
+                            borderRadius: BorderRadius.all(Radius.circular(40)),
+                          ),
+                          child: FlatButton(
+                            child: Text(
+                              _label,
+                              style: TextStyle(fontSize: 20.0),
                             ),
-                            child: FlatButton(
-                              child: Text(
-                                _label,
-                                style: TextStyle(fontSize: 20.0),
-                              ),
-                              textColor: Colors.white,
-                              onPressed: validateAndSubmit,
-                            )),
+                            textColor: Colors.white,
+                            onPressed: (() {
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              validateAndSubmit();
+                            }),
+                          ),
+                        ),
                         FlatButton(
                           child: Text(
-                            'Criar Conta',
+                            _label1,
                             style:
                                 TextStyle(fontSize: 15.0, color: Colors.grey),
                           ),
@@ -241,28 +314,26 @@ class _LoginState extends State<Login> {
                         Align(
                           alignment: Alignment.centerRight,
                           child: Padding(
-                              padding: EdgeInsets.only(right: 8.0),
-                              child: FlatButton(
-                                child: Text(
-                                  'SKiP',
-                                  style: TextStyle(
-                                      fontSize: 12.5, color: Colors.grey),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) => Home(
-                                        model: widget.model,
-                                        auth: null,
-                                        onSignedOut: null,
-                                        user: _user,
-                                      ),
+                            padding: EdgeInsets.only(right: 8.0),
+                            child: FlatButton(
+                              child: Text(
+                                'SKiP',
+                                style: TextStyle(
+                                    fontSize: 12.5, color: Colors.grey),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) => Home(
+                                      model: widget.model,
+                                      onSignedOut: null,
+                                      user: null,
                                     ),
-                                  );
-                                },
-                              )),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
                         ),
                       ],
                     ),

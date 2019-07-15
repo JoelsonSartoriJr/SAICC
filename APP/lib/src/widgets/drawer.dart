@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../app.dart';
 import '../authentication/authentication.dart';
+import '../authentication/authprovider.dart';
 import '../screens/parceiros.dart';
 import '../screens/patrocinadores.dart';
 import '../screens/maps.dart';
@@ -15,14 +16,13 @@ import '../definitions/images.dart';
 
 class SideMenu extends StatefulWidget {
   final FirebaseUser user;
-  final AuthImplementation auth;
   final VoidCallback onSignedOut;
   List<ParceirosModel> parceiros;
   List<PatrocinadoresModel> patrocinadores;
   List<OrganizacaoModel> organizacao;
   DatabaseReference ref;
   SideMenu(this.parceiros, this.patrocinadores, this.organizacao, this.ref,
-      this.auth, this.onSignedOut, this.user)
+      this.onSignedOut, this.user)
       : super();
   @override
   _SideMenuState createState() {
@@ -49,7 +49,7 @@ class _SideMenuState extends State<SideMenu> {
         accountName: Text(''),
         accountEmail: Text(widget.user == null? '' : widget.user.email),
         currentAccountPicture: CircleAvatar(
-        backgroundImage: AssetImage('assets/temp_person.png'),
+        backgroundImage: widget.user == null? ImageDefinition().obterPersonImage(''): ImageDefinition().obterPersonImage(widget.user.photoUrl),
         ),
         decoration: new BoxDecoration(
           shape: BoxShape.rectangle,
@@ -196,7 +196,7 @@ class _SideMenuState extends State<SideMenu> {
           title: Text('Logout'),
           leading: Icon(Icons.exit_to_app),
           onTap: () {
-            _logout();
+            _logout(context);
             Navigator.of(context).pop();
             Navigator.push(
               context,
@@ -211,12 +211,13 @@ class _SideMenuState extends State<SideMenu> {
     return lista;
   }
 
-  void _logout() async {
+   Future<void> _logout(BuildContext context) async {
     try {
-      await widget.auth.signOut();
+      final AuthImplementation auth = AuthProvider.of(context).auth;
+      await auth.signOut();
       widget.onSignedOut();
     } catch (e) {
-      print(e.toString());
+      print(e);
     }
   }
 }

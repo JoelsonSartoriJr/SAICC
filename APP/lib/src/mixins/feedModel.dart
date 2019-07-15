@@ -1,4 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'dart:convert';
+
 class FeedModel {
   String key;
   String descricao;
@@ -17,13 +19,20 @@ class FeedModel {
     fonte = parsedJson['fonte'];
     imagemfonte = parsedJson['imagemfonte'];
   }
+}
+class FeedListModel{
+  List<FeedModel> feed = List<FeedModel>();
+  FeedListModel(this.feed);
 
-  FeedModel.fromSnapshot(DataSnapshot snapshot, String id) {
-    key = id;
-    descricao = snapshot.value['descricao'];
-    titulo = snapshot.value['titulo'];
-    imagemtema = snapshot.value['imagemtema'];
-    fonte = snapshot.value['fonte'];
-    imagemfonte = snapshot.value['imagemfonte'];
+  FeedListModel.fromSnapshot(DataSnapshot snapshot) {
+    String dados = jsonEncode(snapshot.value);
+    
+    Map<String, dynamic> mapeamento = json.decode(dados);
+
+    List<String> keys = mapeamento.keys.toList();
+    for (int a = 0; a < keys.length; a++) {
+      Map<String, dynamic> parsed = mapeamento[keys[a]];
+      feed.add(FeedModel.fromJson(parsed, keys[a]));
+    }
   }
 }

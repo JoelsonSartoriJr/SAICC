@@ -25,7 +25,8 @@ class Splash {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CircleAvatar(
-                        backgroundColor: definitions.obterSplashScreenAvatarBackground(),
+                        backgroundColor:
+                            definitions.obterSplashScreenAvatarBackground(),
                         radius: 80,
                         child: ImageDefinition().obterSplashScreenImage(),
                       ),
@@ -50,9 +51,10 @@ class Splash {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     CircularProgressIndicator(
-                        valueColor: new AlwaysStoppedAnimation<Color>(
-                            definitions
-                                .obterSplashScreenCircularProgressBar())),
+                      valueColor: new AlwaysStoppedAnimation<Color>(
+                        definitions.obterSplashScreenCircularProgressBar(),
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
                     ),

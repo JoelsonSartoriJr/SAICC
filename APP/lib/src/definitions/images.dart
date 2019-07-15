@@ -52,4 +52,8 @@ class ImageDefinition {
   AssetImage obterDrawerTema() {
     return AssetImage('assets/logosaicc.png');
   }
+
+  ImageProvider obterLogin() {
+    return AssetImage('assets/temp_personv_1.png');
+  }
 }
