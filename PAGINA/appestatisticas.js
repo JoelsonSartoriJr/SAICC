@@ -15,22 +15,34 @@ var ref1 = firebase.database().ref('conteudo/eventos/');
  * Espera o evento de que a DOM está pronta para executar algo
  */
 document.addEventListener("DOMContentLoaded", function () {
-
-    ref.orderByKey().on('child_added', snapshot => {
-        var titulo = ''; 
-        var qtd = 0;
-        ref1.equalTo(snapshot.key).once(snapshot => {
-            titulo = snapshot.val().titulo;
-        })
-        qtd = snapshot.val().length;
-        adicionaCardATela(titulo, qtd);
-    })
+    var e = {};
+    ref.on('child_added', snapshot => {
+        snapshot.forEach((snapshot) => {
+            var c = snapshot.val().toString();
+            if (snapshot in e) {
+                e[c]['qtd'] += 1;
+            } else {
+                e[c] = { 'qtd': 1, 'titulo': '' };
+            }
+        }
+        );
+        intermediario(e);
+    });
 });
+
+function intermediario(e) {
+    ref1.on("child_added", snapshot => {
+        if (snapshot.key in e) {
+            e[snapshot.key]['titulo'] = snapshot.val().titulo;
+            adicionaCardATela(e[snapshot.key]['titulo'], e[snapshot.key]['qtd'], snapshot.key);
+        }
+    });
+};
 
 /**
  * Adiciona card na tela
  */
-function adicionaCardATela(titulo, qtd) {
+function adicionaCardATela(titulo, qtd, id) {
     /**
      * HEADER DO CARD
      */
@@ -44,8 +56,8 @@ function adicionaCardATela(titulo, qtd) {
      */
     let tipo = document.createElement("p");
     tipo.classList.add('card-text');
-    tipo.innerText = 'No total '+ qtd + ' pessoas favoritaram o evento';
-    
+    tipo.innerText = 'No total ' + qtd + ' pessoas favoritaram o evento';
+
     // ===================================
 
     /**
@@ -53,6 +65,7 @@ function adicionaCardATela(titulo, qtd) {
      */
     let card = document.createElement("div");
     card.classList.add('card');
+    card.id = id;
     let card_body = document.createElement("div");
     card_body.classList.add('card-body');
     // ===================================
@@ -61,9 +74,14 @@ function adicionaCardATela(titulo, qtd) {
     card_body.appendChild(header);
     card_body.appendChild(tipo);
     card.appendChild(card_body);
-
+    var doc = document.getElementById(id);
+    if (doc != null) {
+        $('#' + id).html(card_body);
+    } else {
+        CARD_CONTAINER.appendChild(card);
+    }
     // insere no container
-    CARD_CONTAINER.appendChild(card);
+
 }
 
 function logout() {
