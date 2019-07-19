@@ -5,6 +5,7 @@ import 'authprovider.dart';
 import '../mixins/rootModel.dart';
 import '../screens/login.dart';
 import '../screens/home.dart';
+import '../screens/splashPage.dart';
 
 class MappingPage extends StatefulWidget {
   final RootModel model;
@@ -16,12 +17,14 @@ class MappingPage extends StatefulWidget {
 }
 
 enum AuthStatus {
+  loading,
   notSignedIn,
   signIn,
 }
 
 class _MappingPageState extends State<MappingPage> {
-  AuthStatus _authStatus = AuthStatus.notSignedIn;
+  AuthStatus _authStatus = AuthStatus.loading;
+  FirebaseUser _user;
 
   @override
   void didChangeDependencies() {
@@ -29,14 +32,19 @@ class _MappingPageState extends State<MappingPage> {
     final AuthImplementation auth = AuthProvider.of(context).auth;
     auth.getCurrentUser().then((FirebaseUser user) {
       setState(() {
+        _user = user;
         _authStatus = user == null ? AuthStatus.notSignedIn : AuthStatus.signIn;
       });
     });
   }
 
   void _signedIn() {
-    setState(() {
-      _authStatus = AuthStatus.signIn;
+    final AuthImplementation auth = AuthProvider.of(context).auth;
+    auth.getCurrentUser().then((FirebaseUser user) {
+      setState(() {
+        _user = user;
+        _authStatus = AuthStatus.signIn;
+      });
     });
   }
 
@@ -49,10 +57,13 @@ class _MappingPageState extends State<MappingPage> {
   @override
   Widget build(BuildContext context) {
     switch (_authStatus) {
+      case AuthStatus.loading:
+        return Splash().screen();
       case AuthStatus.notSignedIn:
-        return Login(model: widget.model, onSignedIn: _signedIn);
+        return Login(
+            model: widget.model, onSignedIn: _signedIn);
       case AuthStatus.signIn:
-        return Home(model: widget.model, onSignedOut: _signedOut);
+        return Home(model: widget.model, onSignedOut: _signedOut, user: _user);
     }
     return null;
   }

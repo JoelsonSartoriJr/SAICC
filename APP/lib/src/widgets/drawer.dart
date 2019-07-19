@@ -1,6 +1,6 @@
-import 'package:SAICCIX/src/mixins/organizacaoModel.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import '../app.dart';
 import '../authentication/authentication.dart';
@@ -12,6 +12,8 @@ import '../screens/desenvolvedores.dart';
 import '../screens/organizacao.dart';
 import '../mixins/parceirosModel.dart';
 import '../mixins/patrocinadoresModel.dart';
+import '../mixins/organizacaoModel.dart';
+import '../sources/firebase.dart';
 import '../definitions/images.dart';
 
 class SideMenu extends StatefulWidget {
@@ -31,8 +33,30 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-  bool notification = false;
-  bool favoritos = false;
+  bool _notification = false;
+  //bool favoritos = false;
+  final FirebaseMessaging _messaging = FirebaseMessaging();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _messaging.configure(
+      onMessage: (Map<String, dynamic> message) {
+        //print('on message $message');
+      },
+      onResume: (Map<String, dynamic> message) {
+        //print('on resume $message');
+      },
+      onLaunch: (Map<String, dynamic> message) {
+        //print('on launch $message');
+      },
+    );
+    setNotificationsOnStart();
+    _messaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -42,14 +66,47 @@ class _SideMenuState extends State<SideMenu> {
     );
   }
 
+  void setNotificationsOnTap() {
+    _messaging.getToken().then((token) {
+      FirebaseDatabaseSnapshot()
+          .getTokenSmartphone(widget.ref, token, widget.user)
+          .then((valor) {
+        FirebaseDatabaseSnapshot()
+            .updateTokenSmartphone(widget.ref, token, widget.user, valor)
+            .then((valor) {
+          setState(() {
+            _notification = valor;
+          });
+        });
+      });
+    });
+  }
+
+  void setNotificationsOnStart() {
+    _messaging.getToken().then((token) {
+      FirebaseDatabaseSnapshot()
+          .getTokenSmartphone(widget.ref, token, widget.user)
+          .then((valor) {
+        setState(() {
+          _notification = valor;
+        });
+      });
+    });
+  }
+
   List<Widget> obterItens() {
     List<Widget> lista = [
       UserAccountsDrawerHeader(
-       // decoration:
+        // decoration:
         accountName: Text(''),
-        accountEmail: Text(widget.user == null? '' : widget.user.email),
+        accountEmail: Text(
+          widget.user == null ? '' : widget.user.email,
+          style: TextStyle(color: Colors.black),
+        ),
         currentAccountPicture: CircleAvatar(
-        backgroundImage: widget.user == null? ImageDefinition().obterPersonImage(''): ImageDefinition().obterPersonImage(widget.user.photoUrl),
+          backgroundImage: widget.user == null
+              ? ImageDefinition().obterPersonImage('')
+              : ImageDefinition().obterPersonImage(widget.user.photoUrl),
         ),
         decoration: new BoxDecoration(
           shape: BoxShape.rectangle,
@@ -62,25 +119,22 @@ class _SideMenuState extends State<SideMenu> {
       ListTile(
         title: Text('Notificação'),
         leading: Icon(Icons.notifications),
-        onTap: () {
-          //widget.ref;
-          setState(() {
-            notification = !notification;
-          });
-        },
+        onTap: setNotificationsOnTap,
         trailing: new Checkbox(
-            value: notification,
-            onChanged: (bool value) {
-              setState(() {
-                notification = value;
-              });
-            }),
+          value: _notification,
+          onChanged: (value) {
+            setNotificationsOnTap();
+            setState(() {
+              _notification = value;
+            });
+          },
+        ),
       ),
       Divider(
         color: Colors.black,
         height: 5.0,
       ),
-      ListTile(
+      /*ListTile(
         title: Text('Favoritos'),
         leading: Icon(Icons.favorite),
         onTap: () {
@@ -100,7 +154,7 @@ class _SideMenuState extends State<SideMenu> {
       Divider(
         color: Colors.black,
         height: 5.0,
-      ),
+      ),*/
       ListTile(
         title: Text('Como chegar'),
         leading: Icon(Icons.place),
@@ -211,7 +265,7 @@ class _SideMenuState extends State<SideMenu> {
     return lista;
   }
 
-   Future<void> _logout(BuildContext context) async {
+  Future<void> _logout(BuildContext context) async {
     try {
       final AuthImplementation auth = AuthProvider.of(context).auth;
       await auth.signOut();

@@ -5,11 +5,11 @@ class EventosModel {
   String autoremail;
   String autorformacao;
   String autorprofissao;
-  int avaliacao;
-  int contadoravaliacoes;
   String data;
   String descricao;
   String hora;
+  bool favoritar = false;
+  String keyfavorito;
   String imagemperfilautor;
   String imagemtema;
   String subtitulo;
@@ -25,8 +25,6 @@ class EventosModel {
       this.autoremail,
       this.autorformacao,
       this.autorprofissao,
-      this.avaliacao,
-      this.contadoravaliacoes,
       this.data,
       this.descricao,
       this.hora,
@@ -44,8 +42,6 @@ class EventosModel {
     autoremail = parsedJson['autoremail'];
     autorformacao = parsedJson['autorformacao'];
     autorprofissao = parsedJson['autorprofissao'];
-    avaliacao = parsedJson['avaliacao'];
-    contadoravaliacoes = parsedJson['contadoravaliacoes'];
     data = parsedJson['data'];
     descricao = parsedJson['descricao'];
     hora = parsedJson['hora'];
@@ -64,8 +60,6 @@ class EventosModel {
     autoremail = snapshot.value['autoremail'];
     autorformacao = snapshot.value['autorformacao'];
     autorprofissao = snapshot.value['autorprofissao'];
-    avaliacao = snapshot.value['avaliacao'];
-    contadoravaliacoes = snapshot.value['contadoravaliacoes'];
     data = snapshot.value['data'];
     descricao = snapshot.value['descricao'];
     hora = snapshot.value['hora'];

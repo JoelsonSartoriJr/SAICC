@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:SAICCIX/src/definitions/images.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toast/toast.dart';
 import 'package:image_picker/image_picker.dart';
 import '../authentication/authentication.dart';
@@ -40,7 +39,6 @@ class _LoginState extends State<Login> {
   String _password = "";
   String _label = 'Login';
   String _label1 = 'Criar Conta';
-  FirebaseUser _user;
   ImageProvider _perfil = ImageDefinition().obterLogin();
   File _file;
 
@@ -70,9 +68,9 @@ class _LoginState extends State<Login> {
       try {
         final AuthImplementation auth = AuthProvider.of(context).auth;
         if (_formType == FormType.login) {
-          _user = await auth.signIn(_email, _password);
+          await auth.signIn(_email, _password, _file);
         } else {
-          _user = await auth.createUser(_email, _password, _file);
+          await auth.createUser(_email, _password, _file);
         }
         widget.onSignedIn();
       } catch (e) {

@@ -7,7 +7,8 @@ class Dia extends StatefulWidget {
   String dia;
   List<EventosModel> eventos;
   DatabaseReference ref;
-  Dia(this.dia, this.eventos, this.ref) : super();
+  String useruid;
+  Dia(this.dia, this.eventos, this.ref, this.useruid) : super();
   @override
   createState() => _DiaState();
 }
@@ -29,9 +30,10 @@ class _DiaState extends State<Dia> {
         eventodia.add(eventos[a]);
       }
     }
+    eventodia.sort((a, b)=> (b.favoritar == true ? 1 : 0).compareTo(a.favoritar == true ? 1 : 0));
     List<Widget> lista = new List<Widget>();
     for (int a = 0; a < eventodia.length; a++) {
-      lista.add(CardPalestra(eventodia[a], ref));
+      lista.add(CardPalestra(eventodia[a], ref, widget.useruid));
     }
     return lista;
   }

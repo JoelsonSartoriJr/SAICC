@@ -1,16 +1,19 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../screens/palestra.dart';
 import '../screens/palestrante.dart';
 import '../mixins/eventosModel.dart';
 import '../definitions/colors.dart';
 import '../definitions/images.dart';
 import '../screens/maps.dart';
+import '../sources/firebase.dart';
 
 class CardPalestra extends StatefulWidget {
   EventosModel model;
   DatabaseReference ref;
-  CardPalestra(this.model, this.ref) : super();
+  String useruid;
+  CardPalestra(this.model, this.ref, this.useruid) : super();
   @override
   _CardPalestraState createState() {
     return new _CardPalestraState();
@@ -20,10 +23,9 @@ class CardPalestra extends StatefulWidget {
 class _CardPalestraState extends State<CardPalestra> {
   final definitions = ColorsDefinitions();
   Color corNotifi;
-  bool notificar = false;
   @override
   Widget build(BuildContext context) {
-    if (notificar) {
+    if (widget.model.favoritar) {
       corNotifi = Colors.white.withOpacity(0.6);
     } else {
       corNotifi = Colors.black.withOpacity(0.4);
@@ -38,7 +40,8 @@ class _CardPalestraState extends State<CardPalestra> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => Palestra(widget.model),
+                  builder: (BuildContext context) =>
+                      Palestra(widget.model, widget.ref, widget.useruid),
                 ),
               );
             },
@@ -80,7 +83,7 @@ class _CardPalestraState extends State<CardPalestra> {
                       context,
                       MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            Palestra(widget.model),
+                            Palestra(widget.model, widget.ref, widget.useruid),
                       ),
                     );
                   },
@@ -114,15 +117,55 @@ class _CardPalestraState extends State<CardPalestra> {
                         color: corNotifi,
                         icon: Icon(Icons.favorite),
                         onPressed: () {
-                          setState(() {
-                            if (!notificar) {
-                              corNotifi = Colors.white.withOpacity(0.6);
-                              notificar = true;
-                            } else {
-                              corNotifi = Colors.black.withOpacity(0.4);
-                              notificar = false;
-                            }
-                          });
+                          if (widget.useruid == '') {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SimpleDialog(
+                                    title: const Text('Ação não permitida!'),
+                                    children: <Widget>[
+                                      Text(
+                                          'É necessário estar logado para realizar essa operação!'),
+                                      Divider(
+                                        color: Colors.black,
+                                        height: 5.0,
+                                      ),
+                                      SimpleDialogOption(
+                                        onPressed: () {
+                                          // Navigator.pop(
+                                          //     context, Department.treasury);
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                });
+                          } else {
+                            String key;
+                            FirebaseDatabaseSnapshot().setFavoritos(
+                                widget.ref,
+                                widget.model.key,
+                                widget.useruid,
+                                widget.model.favoritar,
+                                widget.model.keyfavorito);
+                            FirebaseDatabaseSnapshot()
+                                .getLastFavorito(widget.ref, widget.model.key,
+                                    widget.useruid)
+                                .then((onValue) {
+                              key = onValue;
+                            });
+                            setState(() {
+                              if (!widget.model.favoritar) {
+                                corNotifi = Colors.white.withOpacity(0.6);
+                                widget.model.favoritar = true;
+                                widget.model.keyfavorito = key;
+                              } else {
+                                corNotifi = Colors.black.withOpacity(0.4);
+                                widget.model.favoritar = false;
+                                widget.model.keyfavorito = key;
+                              }
+                            });
+                          }
                         },
                       ),
                       IconButton(
@@ -138,7 +181,10 @@ class _CardPalestraState extends State<CardPalestra> {
                       ),
                       IconButton(
                         icon: Icon(Icons.share),
-                        onPressed: () {},
+                        onPressed: () {
+                          launch(
+                              'https://www.facebook.com/events/334206930590079/');
+                        },
                       ),
                     ],
                   ),

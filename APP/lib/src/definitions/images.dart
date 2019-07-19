@@ -12,40 +12,59 @@ class ImageDefinition {
   }
 
   ImageProvider obterPersonImage(String imagem) {
-    if (imagem == '') {
+    try {
+      if (imagem == '') {
+        return AssetImage('assets/temp_person.png');
+      } else {
+        return NetworkImage(imagem);
+      }
+    } catch (e) {
       return AssetImage('assets/temp_person.png');
-    } else {
-      return NetworkImage(imagem);
     }
   }
 
   Widget obterPersonImageWidget(String imagem) {
-    if (imagem == '') {
+    try {
+      if (imagem == '') {
+        return Image.asset(
+          'assets/temp_person.png',
+          fit: BoxFit.cover,
+        );
+      } else {
+        return Image.network(
+          imagem,
+          fit: BoxFit.cover,
+        );
+      }
+    } catch (e) {
       return Image.asset(
         'assets/temp_person.png',
-        fit: BoxFit.cover,
-      );
-    } else {
-      return Image.network(
-        imagem,
         fit: BoxFit.cover,
       );
     }
   }
 
   ImageProvider obterPalestraImage(String imagem) {
-    if (imagem == '') {
+    try {
+      if (imagem == '') {
+        return AssetImage('assets/temp_palestra.jpg');
+      } else {
+        return NetworkImage(imagem);
+      }
+    } catch (e) {
       return AssetImage('assets/temp_palestra.jpg');
-    } else {
-      return NetworkImage(imagem);
     }
   }
 
   Widget obterPalestraImageWidget(String imagem) {
-    if (imagem == '') {
+    try {
+      if (imagem == '') {
+        return Image.asset('assets/temp_palestra.jpg', fit: BoxFit.cover);
+      } else {
+        return Image.network(imagem, fit: BoxFit.cover);
+      }
+    } catch (e) {
       return Image.asset('assets/temp_palestra.jpg', fit: BoxFit.cover);
-    } else {
-      return Image.network(imagem, fit: BoxFit.cover);
     }
   }
 

@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
+import '../sources/firebase.dart';
 
 abstract class AuthImplementation {
-  Future<FirebaseUser> signIn(String email, String password);
-  Future<FirebaseUser> createUser(String email, String password, var file);
+  Future<FirebaseUser> signIn(String email, String password, File file);
+  Future<FirebaseUser> createUser(String email, String password, File file);
   Future<void> requestNewPassword(String email);
   Future<FirebaseUser> getCurrentUser();
   Future<void> signOut();
@@ -13,24 +14,28 @@ class Auth implements AuthImplementation {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<FirebaseUser> signIn(String email, String password) async {
+  Future<FirebaseUser> signIn(String email, String password, File file) async {
     FirebaseUser user = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
+    if (file != null) {
+      String url;
+      await FirebaseStorageFiles().uploadImage(file, user).then((valor){
+        url = valor;
+      });
+      UserUpdateInfo info = UserUpdateInfo();
+      info.photoUrl = url;
+      await user.updateProfile(info);
+    }
     return user;
   }
 
   @override
   Future<FirebaseUser> createUser(
-      String email, String password, var file) async {
-    Uri url;
+      String email, String password, File file) async {
     FirebaseUser user = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     if (file != null) {
-      FirebaseStorage storage =
-          FirebaseStorage(storageBucket: 'gs://saicix.appspot.com/users');
-      await storage.ref().putFile(file).onComplete.then((event) {
-        url = event.uploadSessionUri;
-      });
+      Future<String> url = FirebaseStorageFiles().uploadImage(file, user);
       UserUpdateInfo info = UserUpdateInfo();
       info.photoUrl = url.toString();
       await user.updateProfile(info);

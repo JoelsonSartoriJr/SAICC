@@ -1,4 +1,3 @@
-import 'mixins/rootModel.dart';
 import 'package:flutter/material.dart';
 import 'screens/splashPage.dart';
 import 'authentication/mapping.dart';
@@ -9,7 +8,6 @@ import 'definitions/text.dart';
 import 'sources/firebase.dart';
 
 class App extends StatelessWidget {
-  RootModel model;
   @override
   Widget build(BuildContext context) {
     return AuthProvider(
@@ -23,7 +21,7 @@ class App extends StatelessWidget {
         future: FirebaseDatabaseSnapshot().getData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.error != null) {
-            print(snapshot.error);
+            //print(snapshot.error);
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
