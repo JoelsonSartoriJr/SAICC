@@ -15,9 +15,13 @@ class Auth implements AuthImplementation {
 
   @override
   Future<FirebaseUser> signIn(String email, String password, File file) async {
-    FirebaseUser user = await _firebaseAuth.signInWithEmailAndPassword(
+    FirebaseUser user;
+    AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
-    if (file != null) {
+    if (result != null){
+      user = result.user;
+    }
+    if (file != null && user != null) {
       String url;
       await FirebaseStorageFiles().uploadImage(file, user).then((valor){
         url = valor;
@@ -32,9 +36,14 @@ class Auth implements AuthImplementation {
   @override
   Future<FirebaseUser> createUser(
       String email, String password, File file) async {
-    FirebaseUser user = await _firebaseAuth.createUserWithEmailAndPassword(
+    FirebaseUser user;
+    AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
-    if (file != null) {
+    if (result != null){
+      user = result.user;
+    }
+    if (file != null && user != null) {
+      FirebaseUser user = result.user;
       Future<String> url = FirebaseStorageFiles().uploadImage(file, user);
       UserUpdateInfo info = UserUpdateInfo();
       info.photoUrl = url.toString();
