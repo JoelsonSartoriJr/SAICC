@@ -307,7 +307,7 @@ class _LoginState extends State<Login> {
                             style:
                                 TextStyle(fontSize: 15.0, color: Colors.grey),
                           ),
-                          onPressed: moveToRegister,
+                          onPressed: _formType == FormType.login ? moveToRegister : moveToLogin,
                         ),
                         Align(
                           alignment: Alignment.centerRight,
