@@ -40,35 +40,33 @@ class _SideMenuState extends State<SideMenu> {
 
   @override
   void initState() {
-    super.initState();
-
-    _messaging.configure(
+      _messaging.configure(
       onMessage: (Map<String, dynamic> message) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(30.0)),
-            content: ListTile(
-              title: Text(message['notification']['title']),
-              subtitle: Text(message['notification']['body']),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                color: ColorsDefinitions().obterAppBarColor(),
-                shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0)),
-                child: Text(
-                  'Ok',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ],
-          ),
-        );
+        // showDialog(
+        //   context: context,
+        //   builder: (context) => AlertDialog(
+        //     shape: RoundedRectangleBorder(
+        //         borderRadius: new BorderRadius.circular(30.0)),
+        //     content: ListTile(
+        //       title: Text(message['notification']['title']),
+        //       subtitle: Text(message['notification']['body']),
+        //     ),
+        //     actions: <Widget>[
+        //       FlatButton(
+        //         color: ColorsDefinitions().obterAppBarColor(),
+        //         shape: RoundedRectangleBorder(
+        //             borderRadius: new BorderRadius.circular(30.0)),
+        //         child: Text(
+        //           'Ok',
+        //           style: TextStyle(
+        //             color: Colors.white,
+        //           ),
+        //         ),
+        //         onPressed: () => Navigator.of(context).pop(),
+        //       ),
+        //     ],
+        //   ),
+        // );
       },
       onResume: (Map<String, dynamic> message) {
         //print('on resume $message');
@@ -80,6 +78,7 @@ class _SideMenuState extends State<SideMenu> {
     setNotificationsOnStart();
     _messaging.requestNotificationPermissions(
         const IosNotificationSettings(sound: true, badge: true, alert: true));
+    super.initState();
   }
 
   @override
@@ -112,9 +111,15 @@ class _SideMenuState extends State<SideMenu> {
       FirebaseDatabaseSnapshot()
           .getTokenSmartphone(widget.ref, token, widget.user)
           .then((valor) {
-        setState(() {
-          _notification = valor;
-        });
+        if (valor) {
+          FirebaseDatabaseSnapshot()
+              .updateTokenSmartphone(widget.ref, token, widget.user, !valor)
+              .then((valor) {
+            setState(() {
+              _notification = valor;
+            });
+          });
+        }
       });
     });
   }

@@ -52,8 +52,13 @@ class FirebaseDatabaseSnapshot {
         .child(user.uid)
         .once()
         .then((DataSnapshot snapshot) {
-      if (snapshot.value == token) {
+      if (snapshot.value == '-') {
+        retorno = false;
+      }else{
         retorno = true;
+      //   if (snapshot.value == token) {
+      //   retorno = true;
+      // }
       }
     });
     return retorno;
