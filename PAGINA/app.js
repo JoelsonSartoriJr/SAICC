@@ -45,8 +45,12 @@ function criarCard() {
                 //adicionaCardATela(card);
             });
             if (datas.indexOf(card.data) == -1) {
-                ref1.push(card.data).then(() => {
-                });
+                try{
+                    ref1.push(card.data).then(() => {
+                    });
+                }catch(ex){
+                    alert(ex);
+                }
             }
             /**
              * push(): cria id unico e insere os dados dentro desse uid

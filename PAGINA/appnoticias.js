@@ -12,10 +12,13 @@ function criarCard() {
     }
 
     if (card.titulo != '' && card.descricao != '' && card.imagemfonte != '' && card.fonte != '') {
-        ref.push(card).then(() => {
-          
-        });
-
+        try{
+            ref.push(card).then(() => {
+            });
+        }catch(ex){
+            alert(ex);
+        }
+    
         $("#titulo").val('');
         $("#descricao").val('');
         $("#imagemtema").val('');

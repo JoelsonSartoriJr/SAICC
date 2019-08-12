@@ -14,9 +14,12 @@ function criarCard() {
     }
 
     if (card.nome != '' && card.logo != '') {
-        ref.push(card).then(() => {
-            //adicionaCardATela(card);
-        });
+        try{
+            ref.push(card.data).then(() => {
+            });
+        }catch(ex){
+            alert(ex);
+        }
 
         $("#nomeparceiro").val('');
         $("#imagemtema").val('');
