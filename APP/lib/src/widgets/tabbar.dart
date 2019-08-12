@@ -8,11 +8,13 @@ import '../screens/feed.dart';
 import '../sources/firebase.dart';
 
 class TabBarBuild {
-  List<Widget> obterTabBarList(List<String> dia) {
+  List<Widget> obterTabBarList(List<String> dia, bool temFeed) {
     List<Widget> lista = new List<Widget>();
-    lista.add(new Tab(
-      text: 'Feed',
-    ));
+    if (temFeed) {
+      lista.add(new Tab(
+        text: 'Feed',
+      ));
+    }
     for (int a = 0; a < dia.length; a++) {
       lista.add(new Tab(
         text: dia[a],
@@ -26,7 +28,8 @@ class TabBarBuild {
       List<EventosModel> eventos,
       List<FeedModel> feed,
       DatabaseReference ref,
-      FirebaseUser user) {
+      FirebaseUser user, 
+      bool temFeed) {
     List<Widget> lista = new List<Widget>();
     if (user != null) {
       FirebaseDatabaseSnapshot().getFavoritos(ref, user.uid).then((mapeamento) {
@@ -42,7 +45,9 @@ class TabBarBuild {
         }
       });
     }
-    lista.add(Feed(feed, ref));
+    if(temFeed){
+      lista.add(Feed(feed, ref));
+    }
     for (int a = 0; a < dia.length; a++) {
       lista.add(Dia(dia[a], eventos, ref, user == null ? '' : user.uid));
     }

@@ -56,27 +56,31 @@ class _PalestraState extends State<Palestra> {
                         onPressed: () {
                           if (widget.useruid == '') {
                             showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return SimpleDialog(
-                                    title: const Text('Ação não permitida!'),
-                                    children: <Widget>[
-                                      Text(
-                                          'É necessário estar logado para realizar essa operação!'),
-                                      Divider(
-                                        color: Colors.black,
-                                        height: 5.0,
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                                content: ListTile(
+                                  title: Text('Ação não permitida!'),
+                                  subtitle: Text(
+                                      'É necessário estar logado para realizar essa operação!'),
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    color:
+                                        ColorsDefinitions().obterAppBarColor(),
+                                    shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                                    child: Text(
+                                      'Ok',
+                                      style: TextStyle(
+                                        color: Colors.white,
                                       ),
-                                      SimpleDialogOption(
-                                        onPressed: () {
-                                          // Navigator.pop(
-                                          //     context, Department.treasury);
-                                        },
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  );
-                                });
+                                    ),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ),
+                                ],
+                              ),
+                            );
                           } else {
                             String key;
                             FirebaseDatabaseSnapshot().setFavoritos(

@@ -17,12 +17,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   TabController _controller;
-  
+  bool _temFeed = false; 
   @override
   void initState() {
-    _controller = new TabController(
+    var add = widget.model.feed.length > 0 ? 1 : 0;
+    _temFeed = add == 1 ? true : false;
+    _controller = new TabController( 
       vsync: this,
-      length: widget.model.dias.dia.length + 1,
+      length: widget.model.dias.dia.length + add,
     );
     super.initState();
   }
@@ -41,14 +43,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         bottom: TabBar(
           isScrollable: true,
           controller: _controller,
-          tabs: TabBarBuild().obterTabBarList(widget.model.dias.dia),
+          tabs: TabBarBuild().obterTabBarList(widget.model.dias.dia, _temFeed),
         ),
         backgroundColor: ColorsDefinitions().obterAppBarColor(),
       ),
       body: TabBarView(
         controller: _controller,
         children: TabBarBuild().obterTabBarItensList(
-            widget.model.dias.dia, widget.model.eventos, widget.model.feed, widget.model.referencia, widget.user),
+            widget.model.dias.dia, widget.model.eventos, widget.model.feed, widget.model.referencia, widget.user, _temFeed),
       ),
       drawer: SideMenu(widget.model.parceiros, widget.model.patrocinadores, widget.model.organizacao, widget.model.referencia, widget.onSignedOut, widget.user),
     );

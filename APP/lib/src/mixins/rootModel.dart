@@ -28,11 +28,13 @@ class RootModel {
       Map<String, dynamic> parsed = parsedEvent[keys[a]];
       eventos.add(EventosModel.fromJson(parsed, keys[a]));
     }
-    parsedEvent = parsedJson['feed'];
-    keys = parsedEvent.keys.toList();
-    for (int a = 0; a < keys.length; a++) {
-      Map<String, dynamic> parsed = parsedEvent[keys[a]];
-      feed.add(FeedModel.fromJson(parsed, keys[a]));
+    parsedEvent = parsedJson['feed'] != null ? parsedJson['feed'] : null;
+    if (parsedEvent != null) {
+      keys = parsedEvent.keys.toList();
+      for (int a = 0; a < keys.length; a++) {
+        Map<String, dynamic> parsed = parsedEvent[keys[a]];
+        feed.add(FeedModel.fromJson(parsed, keys[a]));
+      }
     }
     parsedEvent = parsedJson['parceiros'];
     keys = parsedEvent.keys.toList();
@@ -55,12 +57,11 @@ class RootModel {
     }
   }
 
-
   RootModel.fromSnapshot(DataSnapshot snapshot) {
     String dados = jsonEncode(snapshot.value);
-    
+
     Map<String, dynamic> mapeamento = json.decode(dados);
-    
+
     dias = DiasModel.fromJson(mapeamento['dias']);
 
     Map<String, dynamic> parsedEvent = mapeamento['eventos'];
@@ -70,11 +71,13 @@ class RootModel {
       eventos.add(EventosModel.fromJson(parsed, keys[a]));
     }
 
-    parsedEvent = mapeamento['feed'];
-    keys = parsedEvent.keys.toList();
-    for (int a = 0; a < keys.length; a++) {
-      Map<String, dynamic> parsed = parsedEvent[keys[a]];
-      feed.add(FeedModel.fromJson(parsed, keys[a]));
+    parsedEvent = mapeamento['feed'] != null ? mapeamento['feed'] : null;
+    if (parsedEvent != null) {
+      keys = parsedEvent.keys.toList();
+      for (int a = 0; a < keys.length; a++) {
+        Map<String, dynamic> parsed = parsedEvent[keys[a]];
+        feed.add(FeedModel.fromJson(parsed, keys[a]));
+      }
     }
     parsedEvent = mapeamento['parceiros'];
     keys = parsedEvent.keys.toList();

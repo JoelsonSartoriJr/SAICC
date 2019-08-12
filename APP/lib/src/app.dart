@@ -13,31 +13,47 @@ class App extends StatelessWidget {
     return AuthProvider(
       auth: Auth(),
       child: MaterialApp(
-      title: TextDefinition().obterAppHomeText(),
-      theme: ThemeData(
-        primarySwatch: ColorsDefinitions().obterPrimarySwatch(),
-      ),
-      home: FutureBuilder(
-        future: FirebaseDatabaseSnapshot().getData(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.error != null) {
-            //print(snapshot.error);
-            showDialog(
+        title: TextDefinition().obterAppHomeText(),
+        theme: ThemeData(
+          primarySwatch: ColorsDefinitions().obterPrimarySwatch(),
+        ),
+        home: FutureBuilder(
+          future: FirebaseDatabaseSnapshot().getData(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.error != null) {
+              showDialog(
                 context: context,
-                builder: (BuildContext context) {
-                  return SimpleDialog(
+                builder: (context) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0)),
+                  content: ListTile(
                     title: const Text('Algo saiu errado!'),
-                    children: <Widget>[Text(snapshot.error.toString())],
-                  );
-                });
-          }
-          if (snapshot.data == null) {
-            return Splash().screen();
-          } else {
-            return MappingPage(model: snapshot.data);
-          }
-        },
-      ),
+                    subtitle: Text(snapshot.error.toString()),
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      color: ColorsDefinitions().obterAppBarColor(),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)),
+                      child: Text(
+                        'Ok',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
+                ),
+              );
+            }
+            if (snapshot.data == null) {
+              return Splash().screen();
+            } else {
+              return MappingPage(model: snapshot.data);
+            }
+          },
+        ),
       ),
     );
   }

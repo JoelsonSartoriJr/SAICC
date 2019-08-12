@@ -75,8 +75,8 @@ class FirebaseDatabaseSnapshot {
     return retorno;
   }
 
-  Future<void> setFavoritos(
-      DatabaseReference ref, String palestraid, String userid, bool favoritar, String keyfavorito) async {
+  Future<void> setFavoritos(DatabaseReference ref, String palestraid,
+      String userid, bool favoritar, String keyfavorito) async {
     if (favoritar) {
       await ref
           .child('administracao')
@@ -94,7 +94,8 @@ class FirebaseDatabaseSnapshot {
     }
   }
 
-  Future<String> getLastFavorito(DatabaseReference ref, String palestraid, String userid) async {
+  Future<String> getLastFavorito(
+      DatabaseReference ref, String palestraid, String userid) async {
     String retorno;
     await ref
         .child('administracao')
@@ -110,7 +111,8 @@ class FirebaseDatabaseSnapshot {
     return retorno;
   }
 
-  Future<Map<String, dynamic>> getFavoritos(DatabaseReference ref, String userid) async {
+  Future<Map<String, dynamic>> getFavoritos(
+      DatabaseReference ref, String userid) async {
     Map<String, dynamic> mapeamento;
     await ref
         .child('administracao')

@@ -1,3 +1,4 @@
+import 'package:SAICCIX/src/definitions/colors.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -43,7 +44,31 @@ class _SideMenuState extends State<SideMenu> {
 
     _messaging.configure(
       onMessage: (Map<String, dynamic> message) {
-        //print('on message $message');
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(30.0)),
+            content: ListTile(
+              title: Text(message['notification']['title']),
+              subtitle: Text(message['notification']['body']),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                color: ColorsDefinitions().obterAppBarColor(),
+                shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0)),
+                child: Text(
+                  'Ok',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
+        );
       },
       onResume: (Map<String, dynamic> message) {
         //print('on resume $message');
