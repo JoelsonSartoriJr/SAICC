@@ -22,14 +22,8 @@ class CardPalestra extends StatefulWidget {
 
 class _CardPalestraState extends State<CardPalestra> {
   final definitions = ColorsDefinitions();
-  Color corNotifi;
   @override
   Widget build(BuildContext context) {
-    if (widget.model.favoritar) {
-      corNotifi = Colors.white.withOpacity(0.6);
-    } else {
-      corNotifi = Colors.black.withOpacity(0.4);
-    }
     return Card(
       margin: EdgeInsets.all(10.0),
       child: Column(
@@ -114,7 +108,7 @@ class _CardPalestraState extends State<CardPalestra> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       IconButton(
-                        color: corNotifi,
+                        color: widget.model.favoritoColor,
                         icon: Icon(Icons.favorite),
                         onPressed: () {
                           if (widget.useruid == '') {
@@ -164,11 +158,13 @@ class _CardPalestraState extends State<CardPalestra> {
                             });
                             setState(() {
                               if (!widget.model.favoritar) {
-                                corNotifi = Colors.white.withOpacity(0.6);
+                                widget.model.favoritoColor =
+                                    Colors.white.withOpacity(0.6);
                                 widget.model.favoritar = true;
                                 widget.model.keyfavorito = key;
                               } else {
-                                corNotifi = Colors.black.withOpacity(0.4);
+                                widget.model.favoritoColor =
+                                    Colors.black.withOpacity(0.4);
                                 widget.model.favoritar = false;
                                 widget.model.keyfavorito = key;
                               }

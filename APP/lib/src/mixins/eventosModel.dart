@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+
 class EventosModel {
   String key;
   String autor;
@@ -9,6 +11,7 @@ class EventosModel {
   String descricao;
   String hora;
   bool favoritar = false;
+  Color favoritoColor = Colors.black.withOpacity(0.4);
   String keyfavorito;
   String imagemperfilautor;
   String imagemtema;

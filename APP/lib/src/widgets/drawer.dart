@@ -1,4 +1,3 @@
-import 'package:SAICCIX/src/definitions/colors.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -18,14 +17,16 @@ import '../sources/firebase.dart';
 import '../definitions/images.dart';
 
 class SideMenu extends StatefulWidget {
+  final FirebaseMessaging messaging;
   final FirebaseUser user;
   final VoidCallback onSignedOut;
   List<ParceirosModel> parceiros;
   List<PatrocinadoresModel> patrocinadores;
   List<OrganizacaoModel> organizacao;
   DatabaseReference ref;
+  bool notification;
   SideMenu(this.parceiros, this.patrocinadores, this.organizacao, this.ref,
-      this.onSignedOut, this.user)
+      this.onSignedOut, this.user, this.messaging, this.notification)
       : super();
   @override
   _SideMenuState createState() {
@@ -34,13 +35,10 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-  bool _notification = false;
-  //bool favoritos = false;
-  final FirebaseMessaging _messaging = FirebaseMessaging();
 
   @override
   void initState() {
-      _messaging.configure(
+      widget.messaging.configure(
       onMessage: (Map<String, dynamic> message) {
         // showDialog(
         //   context: context,
@@ -75,8 +73,7 @@ class _SideMenuState extends State<SideMenu> {
         //print('on launch $message');
       },
     );
-    setNotificationsOnStart();
-    _messaging.requestNotificationPermissions(
+    widget.messaging.requestNotificationPermissions(
         const IosNotificationSettings(sound: true, badge: true, alert: true));
     super.initState();
   }
@@ -91,7 +88,7 @@ class _SideMenuState extends State<SideMenu> {
   }
 
   void setNotificationsOnTap() {
-    _messaging.getToken().then((token) {
+    widget.messaging.getToken().then((token) {
       FirebaseDatabaseSnapshot()
           .getTokenSmartphone(widget.ref, token, widget.user)
           .then((valor) {
@@ -99,27 +96,9 @@ class _SideMenuState extends State<SideMenu> {
             .updateTokenSmartphone(widget.ref, token, widget.user, valor)
             .then((valor) {
           setState(() {
-            _notification = valor;
+            widget.notification = valor;
           });
         });
-      });
-    });
-  }
-
-  void setNotificationsOnStart() {
-    _messaging.getToken().then((token) {
-      FirebaseDatabaseSnapshot()
-          .getTokenSmartphone(widget.ref, token, widget.user)
-          .then((valor) {
-        if (valor) {
-          FirebaseDatabaseSnapshot()
-              .updateTokenSmartphone(widget.ref, token, widget.user, !valor)
-              .then((valor) {
-            setState(() {
-              _notification = valor;
-            });
-          });
-        }
       });
     });
   }
@@ -151,11 +130,11 @@ class _SideMenuState extends State<SideMenu> {
         leading: Icon(Icons.notifications),
         onTap: setNotificationsOnTap,
         trailing: new Checkbox(
-          value: _notification,
+          value: widget.notification,
           onChanged: (value) {
             setNotificationsOnTap();
             setState(() {
-              _notification = value;
+              widget.notification = value;
             });
           },
         ),

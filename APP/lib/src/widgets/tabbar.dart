@@ -28,7 +28,7 @@ class TabBarBuild {
       List<EventosModel> eventos,
       List<FeedModel> feed,
       DatabaseReference ref,
-      FirebaseUser user, 
+      FirebaseUser user,
       bool temFeed) {
     List<Widget> lista = new List<Widget>();
     if (user != null) {
@@ -39,13 +39,14 @@ class TabBarBuild {
                 evento.key == mapeamento[mapeamento.keys.elementAt(a)]);
             if (index != -1) {
               eventos[index].favoritar = true;
+              eventos[index].favoritoColor = Colors.white.withOpacity(0.6);
               eventos[index].keyfavorito = mapeamento.keys.elementAt(a);
             }
           }
         }
       });
     }
-    if(temFeed){
+    if (temFeed) {
       lista.add(Feed(feed, ref));
     }
     for (int a = 0; a < dia.length; a++) {

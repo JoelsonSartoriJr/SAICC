@@ -18,14 +18,8 @@ class Palestra extends StatefulWidget {
 
 class _PalestraState extends State<Palestra> {
   final definitions = ColorsDefinitions();
-  Color corNotifi;
   @override
   Widget build(BuildContext context) {
-    if (widget.model.favoritar) {
-      corNotifi = Colors.red.shade900.withOpacity(0.6);
-    } else {
-      corNotifi = definitions.obterPalestraIcon();
-    }
     return Scaffold(
       body: CustomScrollView(
         cacheExtent: 10.0,
@@ -52,13 +46,15 @@ class _PalestraState extends State<Palestra> {
                     children: <Widget>[
                       IconButton(
                         icon: Icon(Icons.favorite),
-                        color: corNotifi,
+                        color: widget.model.favoritoColor,
                         onPressed: () {
                           if (widget.useruid == '') {
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
-                                shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0)),
                                 content: ListTile(
                                   title: Text('Ação não permitida!'),
                                   subtitle: Text(
@@ -68,7 +64,9 @@ class _PalestraState extends State<Palestra> {
                                   FlatButton(
                                     color:
                                         ColorsDefinitions().obterAppBarColor(),
-                                    shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(30.0)),
                                     child: Text(
                                       'Ok',
                                       style: TextStyle(
@@ -97,12 +95,13 @@ class _PalestraState extends State<Palestra> {
                             });
                             setState(() {
                               if (!widget.model.favoritar) {
-                                corNotifi =
+                                widget.model.favoritoColor =
                                     Colors.red.shade900.withOpacity(0.6);
                                 widget.model.favoritar = true;
                                 widget.model.keyfavorito = key;
                               } else {
-                                corNotifi = definitions.obterPalestraIcon();
+                                widget.model.favoritoColor =
+                                    definitions.obterPalestraIcon();
                                 widget.model.favoritar = false;
                                 widget.model.keyfavorito = key;
                               }
