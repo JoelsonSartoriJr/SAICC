@@ -40,6 +40,7 @@ class TabBarBuild {
             if (index != -1) {
               eventos[index].favoritar = true;
               eventos[index].favoritoColor = Colors.white.withOpacity(0.6);
+              eventos[index].favoritoColorPal = Colors.red.shade900.withOpacity(0.6);
               eventos[index].keyfavorito = mapeamento.keys.elementAt(a);
             }
           }

@@ -12,6 +12,7 @@ class EventosModel {
   String hora;
   bool favoritar = false;
   Color favoritoColor = Colors.black.withOpacity(0.4);
+  Color favoritoColorPal = Colors.grey[600];
   String keyfavorito;
   String imagemperfilautor;
   String imagemtema;

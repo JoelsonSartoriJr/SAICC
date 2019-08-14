@@ -46,7 +46,7 @@ class _PalestraState extends State<Palestra> {
                     children: <Widget>[
                       IconButton(
                         icon: Icon(Icons.favorite),
-                        color: widget.model.favoritoColor,
+                        color: widget.model.favoritoColorPal,
                         onPressed: () {
                           if (widget.useruid == '') {
                             showDialog(
@@ -95,12 +95,12 @@ class _PalestraState extends State<Palestra> {
                             });
                             setState(() {
                               if (!widget.model.favoritar) {
-                                widget.model.favoritoColor =
+                                widget.model.favoritoColorPal =
                                     Colors.red.shade900.withOpacity(0.6);
                                 widget.model.favoritar = true;
                                 widget.model.keyfavorito = key;
                               } else {
-                                widget.model.favoritoColor =
+                                widget.model.favoritoColorPal =
                                     definitions.obterPalestraIcon();
                                 widget.model.favoritar = false;
                                 widget.model.keyfavorito = key;
