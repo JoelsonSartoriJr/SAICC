@@ -84,6 +84,8 @@ class _LoginState extends State<Login> {
       try {
         final AuthImplementation auth = AuthProvider.of(context).auth;
         await auth.requestNewPassword(_email);
+        Toast.show('O link de recuperação foi enviado para sua conta de email com sucesso!', context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       } catch (e) {
         getErrors(e.toString());
       }
@@ -315,7 +317,7 @@ class _LoginState extends State<Login> {
                             padding: EdgeInsets.only(right: 8.0),
                             child: FlatButton(
                               child: Text(
-                                'SKiP',
+                                'Pular',
                                 style: TextStyle(
                                     fontSize: 12.5, color: Colors.grey),
                               ),

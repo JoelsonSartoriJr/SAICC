@@ -21,16 +21,16 @@ class _PatrocinadoresState extends State<Patrocinadores> {
         slivers: <Widget>[
           SliverGrid.count(
             crossAxisCount: 1,
-            children: SliverGridBuild().obterPatrocinadorList(widget.patrocinadores, 'ouro', 175.0, 20.0)
+            children: SliverGridBuild().obterPatrocinadorList(widget.patrocinadores, 'ouro', 175.0, 20.0, context)
           ),
           SliverGrid.count(
             crossAxisCount: 2,
-            children: SliverGridBuild().obterPatrocinadorList(widget.patrocinadores, 'prata', 75.0, 15.0),
+            children: SliverGridBuild().obterPatrocinadorList(widget.patrocinadores, 'prata', 75.0, 15.0, context),
           ),
           ///PARTE DOS OUTROS
           SliverGrid.count(
             crossAxisCount: 3,
-            children: SliverGridBuild().obterPatrocinadorList(widget.patrocinadores, 'padrao', 45.0, 10.0),
+            children: SliverGridBuild().obterPatrocinadorList(widget.patrocinadores, 'padrao', 45.0, 10.0, context),
           ),
         ],
       ),

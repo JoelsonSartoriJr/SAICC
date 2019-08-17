@@ -1,3 +1,4 @@
+import 'package:SAICCIX/src/definitions/colors.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -35,10 +36,9 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-
   @override
   void initState() {
-      widget.messaging.configure(
+    widget.messaging.configure(
       onMessage: (Map<String, dynamic> message) {
         // showDialog(
         //   context: context,
@@ -119,10 +119,7 @@ class _SideMenuState extends State<SideMenu> {
         ),
         decoration: new BoxDecoration(
           shape: BoxShape.rectangle,
-          image: new DecorationImage(
-            //: BoxFit.fill,
-            image: ImageDefinition().obterDrawerTema(),
-          ),
+          color: ColorsDefinitions().obterPrimarySwatch(),
         ),
       ),
       ListTile(
@@ -247,30 +244,28 @@ class _SideMenuState extends State<SideMenu> {
         },
       ),
     ];
-    if (widget.user != null) {
-      lista.add(
-        Divider(
-          color: Colors.black,
-          height: 5.0,
-        ),
-      );
-      lista.add(
-        ListTile(
-          title: Text('Logout'),
-          leading: Icon(Icons.exit_to_app),
-          onTap: () {
-            _logout(context);
-            Navigator.of(context).pop();
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => App(),
-              ),
-            );
-          },
-        ),
-      );
-    }
+    lista.add(
+      Divider(
+        color: Colors.black,
+        height: 5.0,
+      ),
+    );
+    lista.add(
+      ListTile(
+        title: widget.user != null ? Text('Logout') : Text('Login'),
+        leading: Icon(Icons.exit_to_app),
+        onTap: () {
+          widget.user != null ? _logout(context) : null;
+          Navigator.of(context).pop();
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => App(),
+            ),
+          );
+        },
+      ),
+    );
     return lista;
   }
 

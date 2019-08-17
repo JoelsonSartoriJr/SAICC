@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../mixins/parceirosModel.dart';
 import '../mixins/patrocinadoresModel.dart';
+import '../definitions/colors.dart';
 
 class SliverGridBuild {
   List<Widget> obterParceirosList(List<ParceirosModel> parceiros) {
@@ -38,7 +39,8 @@ class SliverGridBuild {
     return lista;
   }
 
-  List<Widget> obterPatrocinadorList(List<PatrocinadoresModel> patrocinadores, String tipo, double alturalargura, double fonte) {
+  List<Widget> obterPatrocinadorList(List<PatrocinadoresModel> patrocinadores,
+      String tipo, double alturalargura, double fonte, BuildContext context) {
     List<PatrocinadoresModel> simples = List<PatrocinadoresModel>();
     for (int a = 0; a < patrocinadores.length; a++) {
       if (patrocinadores[a].tipo == tipo) {
@@ -47,8 +49,32 @@ class SliverGridBuild {
     }
     List<Widget> lista = new List<Widget>();
     for (int i = 0; i < simples.length; i++) {
-      lista.add(
-        new Column(
+      lista.add(GestureDetector(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
+              content: Image.network(simples[i].logo),
+              actions: <Widget>[
+                FlatButton(
+                  color: ColorsDefinitions().obterAppBarColor(),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0)),
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
+            ),
+          );
+        },
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Container(
@@ -74,7 +100,7 @@ class SliverGridBuild {
             ),
           ],
         ),
-      );
+      ));
     }
     return lista;
   }

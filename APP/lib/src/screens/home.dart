@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import '../widgets/drawer.dart';
@@ -32,7 +31,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       vsync: this,
       length: widget.model.dias.dia.length + add,
     );
-    setNotificationsOnStart();
+    if (widget.user != null){
+      setNotificationsOnStart();
+    }
     super.initState();
   }
 
