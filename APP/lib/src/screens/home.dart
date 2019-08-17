@@ -62,6 +62,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  back(){
+    _controller.animateTo(0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

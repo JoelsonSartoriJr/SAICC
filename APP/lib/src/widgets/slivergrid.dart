@@ -4,11 +4,36 @@ import '../mixins/patrocinadoresModel.dart';
 import '../definitions/colors.dart';
 
 class SliverGridBuild {
-  List<Widget> obterParceirosList(List<ParceirosModel> parceiros) {
+  List<Widget> obterParceirosList(List<ParceirosModel> parceiros, BuildContext context) {
     List<Widget> lista = new List<Widget>();
     for (int i = 0; i < parceiros.length; i++) {
       lista.add(
-        new Column(
+        GestureDetector(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
+              content: Image.network(parceiros[i].logo),
+              actions: <Widget>[
+                FlatButton(
+                  color: ColorsDefinitions().obterAppBarColor(),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0)),
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
+            ),
+          );
+        },
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Container(
@@ -34,6 +59,7 @@ class SliverGridBuild {
             ),
           ],
         ),
+      ),
       );
     }
     return lista;

@@ -22,7 +22,7 @@ class _ParceirosState extends State<Parceiros> {
         slivers: <Widget>[
           SliverGrid.count(
             crossAxisCount: 2,
-            children: SliverGridBuild().obterParceirosList(widget.parceiros),
+            children: SliverGridBuild().obterParceirosList(widget.parceiros, context),
           ),
         ],
       ),
