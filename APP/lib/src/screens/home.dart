@@ -31,7 +31,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       vsync: this,
       length: widget.model.dias.dia.length + add,
     );
-    if (widget.user != null){
+    if (widget.user != null) {
       setNotificationsOnStart();
     }
     super.initState();
@@ -62,41 +62,83 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  back(){
-    _controller.animateTo(0);
+  Future<bool> _back() {
+    if (_controller.index != 0) {
+      setState(() {
+        _controller.animateTo(0);
+      });
+    }else{
+      return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+                title: new Text('Deseja sair?'),
+                actions: <Widget>[
+                  FlatButton(
+                      color: ColorsDefinitions().obterAppBarColor(),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)),
+                      child: Text(
+                        'Não',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: () => Navigator.of(context).pop(false),
+                    ),
+                  FlatButton(
+                      color: ColorsDefinitions().obterAppBarColor(),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)),
+                      child: Text(
+                        'Sim',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: () => Navigator.of(context).pop(true),
+                    ),
+                ],
+              ),
+        ) ??
+        false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(TextDefinition().obterAppHomeText()),
-        bottom: TabBar(
-          isScrollable: true,
-          controller: _controller,
-          tabs: TabBarBuild().obterTabBarList(widget.model.dias.dia, _temFeed),
+    return WillPopScope(
+      onWillPop: _back,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(TextDefinition().obterAppHomeText()),
+          bottom: TabBar(
+            isScrollable: true,
+            controller: _controller,
+            tabs:
+                TabBarBuild().obterTabBarList(widget.model.dias.dia, _temFeed),
+          ),
+          backgroundColor: ColorsDefinitions().obterAppBarColor(),
         ),
-        backgroundColor: ColorsDefinitions().obterAppBarColor(),
-      ),
-      body: TabBarView(
-        controller: _controller,
-        children: TabBarBuild().obterTabBarItensList(
-            widget.model.dias.dia,
-            widget.model.eventos,
-            widget.model.feed,
+        body: TabBarView(
+          controller: _controller,
+          children: TabBarBuild().obterTabBarItensList(
+              widget.model.dias.dia,
+              widget.model.eventos,
+              widget.model.feed,
+              widget.model.referencia,
+              widget.user,
+              _temFeed),
+        ),
+        drawer: SideMenu(
+            widget.model.parceiros,
+            widget.model.patrocinadores,
+            widget.model.organizacao,
             widget.model.referencia,
+            widget.onSignedOut,
             widget.user,
-            _temFeed),
+            _messaging,
+            _notificacao),
       ),
-      drawer: SideMenu(
-          widget.model.parceiros,
-          widget.model.patrocinadores,
-          widget.model.organizacao,
-          widget.model.referencia,
-          widget.onSignedOut,
-          widget.user,
-          _messaging,
-          _notificacao),
     );
   }
 }
