@@ -178,58 +178,77 @@ class _SideMenuState extends State<SideMenu> {
         color: Colors.black,
         height: 5.0,
       ),
-      ListTile(
-        title: Text('Parceiros'),
-        leading: Icon(Icons.people),
-        onTap: () {
-          Navigator.of(context).pop();
-          Navigator.push(
+    ];
+    if (widget.patrocinadores != null) {
+      lista.add(
+        ListTile(
+          title: Text('Parceiros'),
+          leading: Icon(Icons.people),
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      Parceiros(widget.parceiros),
+                ));
+          },
+        ),
+      );
+      lista.add(
+        Divider(
+          color: Colors.black,
+          height: 5.0,
+        ),
+      );
+    }
+    if (widget.patrocinadores != null) {
+      lista.add(
+        ListTile(
+          title: Text('Patrocinadores'),
+          leading: Icon(Icons.people),
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => Parceiros(widget.parceiros),
-              ));
-        },
-      ),
-      Divider(
+                builder: (BuildContext context) =>
+                    Patrocinadores(widget.patrocinadores),
+              ),
+            );
+          },
+        ),
+      );
+      lista.add(
+        Divider(
+          color: Colors.black,
+          height: 5.0,
+        ),
+      );
+    }
+    if (widget.organizacao != null) {
+      lista.add(
+        ListTile(
+          title: Text('Organizadores'),
+          leading: Icon(Icons.people),
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    Organizacao(widget.organizacao),
+              ),
+            );
+          },
+        ),
+      );
+      lista.add(Divider(
         color: Colors.black,
         height: 5.0,
-      ),
-      ListTile(
-        title: Text('Patrocinadores'),
-        leading: Icon(Icons.people),
-        onTap: () {
-          Navigator.of(context).pop();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  Patrocinadores(widget.patrocinadores),
-            ),
-          );
-        },
-      ),
-      Divider(
-        color: Colors.black,
-        height: 5.0,
-      ),
-      ListTile(
-        title: Text('Organizadores'),
-        leading: Icon(Icons.people),
-        onTap: () {
-          Navigator.of(context).pop();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  Organizacao(widget.organizacao),
-            ),
-          );
-        },
-      ),
-      Divider(
-        color: Colors.black,
-        height: 5.0,
-      ),
+      ));
+    }
+    lista.add(
       ListTile(
         title: Text('Desenvolvedores'),
         leading: Icon(Icons.people),
@@ -243,7 +262,7 @@ class _SideMenuState extends State<SideMenu> {
           );
         },
       ),
-    ];
+    );
     lista.add(
       Divider(
         color: Colors.black,

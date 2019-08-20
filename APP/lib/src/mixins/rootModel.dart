@@ -36,24 +36,34 @@ class RootModel {
         feed.add(FeedModel.fromJson(parsed, keys[a]));
       }
     }
-    parsedEvent = parsedJson['parceiros'];
-    keys = parsedEvent.keys.toList();
-    for (int a = 0; a < keys.length; a++) {
-      Map<String, dynamic> parsed = parsedEvent[keys[a]];
-      parceiros.add(ParceirosModel.fromJson(parsed, keys[a]));
+    parsedEvent =
+        parsedJson['parceiros'] != null ? parsedJson['parceiros'] : null;
+    if (parsedEvent != null) {
+      keys = parsedEvent.keys.toList();
+      for (int a = 0; a < keys.length; a++) {
+        Map<String, dynamic> parsed = parsedEvent[keys[a]];
+        parceiros.add(ParceirosModel.fromJson(parsed, keys[a]));
+      }
     }
-    parsedEvent = parsedJson['patrocinadores'];
-    keys = parsedEvent.keys.toList();
-    for (int a = 0; a < keys.length; a++) {
-      Map<String, dynamic> parsed = parsedEvent[keys[a]];
-      patrocinadores.add(PatrocinadoresModel.fromJson(parsed, keys[a]));
+    parsedEvent = parsedJson['patrocinadores'] != null
+        ? parsedJson['patrocinadores']
+        : null;
+    if (parsedEvent != null) {
+      keys = parsedEvent.keys.toList();
+      for (int a = 0; a < keys.length; a++) {
+        Map<String, dynamic> parsed = parsedEvent[keys[a]];
+        patrocinadores.add(PatrocinadoresModel.fromJson(parsed, keys[a]));
+      }
     }
 
-    parsedEvent = parsedJson['organizacao'];
-    keys = parsedEvent.keys.toList();
-    for (int a = 0; a < keys.length; a++) {
-      Map<String, dynamic> parsed = parsedEvent[keys[a]];
-      organizacao.add(OrganizacaoModel.fromJson(parsed, keys[a]));
+    parsedEvent =
+        parsedJson['organizacao'] != null ? parsedJson['organizacao'] : null;
+    if (parsedEvent != null) {
+      keys = parsedEvent.keys.toList();
+      for (int a = 0; a < keys.length; a++) {
+        Map<String, dynamic> parsed = parsedEvent[keys[a]];
+        organizacao.add(OrganizacaoModel.fromJson(parsed, keys[a]));
+      }
     }
   }
 
