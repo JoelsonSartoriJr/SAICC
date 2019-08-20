@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/splashPage.dart';
+import 'screens/outoffdata.dart';
 import 'authentication/mapping.dart';
 import 'authentication/authentication.dart';
 import 'authentication/authprovider.dart';
@@ -20,37 +21,41 @@ class App extends StatelessWidget {
         home: FutureBuilder(
           future: FirebaseDatabaseSnapshot().getData(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.error != null) {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0)),
-                  content: ListTile(
-                    title: const Text('Algo saiu errado!'),
-                    subtitle: Text(snapshot.error.toString()),
-                  ),
-                  actions: <Widget>[
-                    FlatButton(
-                      color: ColorsDefinitions().obterAppBarColor(),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                      child: Text(
-                        'Ok',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: () => Navigator.of(context).pop(),
+            try {
+              if (snapshot.error != null) {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    content: ListTile(
+                      title: const Text('Algo saiu errado!'),
+                      subtitle: Text(snapshot.error.toString()),
                     ),
-                  ],
-                ),
-              );
-            }
-            if (snapshot.data == null) {
-              return Splash().screen();
-            } else {
-              return MappingPage(model: snapshot.data);
+                    actions: <Widget>[
+                      FlatButton(
+                        color: ColorsDefinitions().obterAppBarColor(),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        child: Text(
+                          'Ok',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              if (snapshot.data == null) {
+                return Splash().screen();
+              } else {
+                return MappingPage(model: snapshot.data);
+              }
+            } catch (e) {
+              return ErrorScreen().screen();
             }
           },
         ),

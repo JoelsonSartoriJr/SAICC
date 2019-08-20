@@ -23,9 +23,14 @@ class FirebaseDatabaseSnapshot {
     DatabaseReference ref;
     RootModel model;
     ref = await FirebaseDatabase.instance.reference();
+    try{
     await ref.child('conteudo').once().then((DataSnapshot snapshot) {
-      model = RootModel.fromSnapshot(snapshot);
+      if (snapshot != null) {
+        model = RootModel.fromSnapshot(snapshot);
+      }
     });
+    }catch(e){
+    }
     model.referencia = ref;
     return model;
   }
@@ -54,11 +59,11 @@ class FirebaseDatabaseSnapshot {
         .then((DataSnapshot snapshot) {
       if (snapshot.value == '-') {
         retorno = false;
-      }else{
+      } else {
         retorno = true;
-      //   if (snapshot.value == token) {
-      //   retorno = true;
-      // }
+        //   if (snapshot.value == token) {
+        //   retorno = true;
+        // }
       }
     });
     return retorno;
