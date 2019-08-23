@@ -45,7 +45,7 @@ class _CardPalestraState extends State<CardPalestra> {
                 image: DecorationImage(
                   image: ImageDefinition()
                       .obterPalestraImage(widget.model.imagemtema),
-                  //fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
                 shape: BoxShape.rectangle,
               ),
