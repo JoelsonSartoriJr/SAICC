@@ -13,11 +13,11 @@ class FeedModel {
 
   FeedModel.fromJson(Map<String, dynamic> parsedJson, String id) {
     key = id;
-    descricao = parsedJson['descricao'];
-    titulo = parsedJson['titulo'];
-    imagemtema = parsedJson['imagemtema'];
-    fonte = parsedJson['fonte'];
-    imagemfonte = parsedJson['imagemfonte'];
+    descricao = parsedJson['descricao']!= null ? parsedJson['descricao'] : '';
+    titulo = parsedJson['titulo']!= null ? parsedJson['titulo'] : '';
+    imagemtema = parsedJson['imagemtema']!= null ? parsedJson['imagemtema'] : '';
+    fonte = parsedJson['fonte']!= null ? parsedJson['fonte'] : '';
+    imagemfonte = parsedJson['imagemfonte']!= null ? parsedJson['imagemfonte'] : '';
   }
 }
 class FeedListModel{

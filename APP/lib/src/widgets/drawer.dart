@@ -179,7 +179,7 @@ class _SideMenuState extends State<SideMenu> {
         height: 5.0,
       ),
     ];
-    if (widget.patrocinadores != null) {
+    if (widget.parceiros != null  && widget.parceiros.length > 0) {
       lista.add(
         ListTile(
           title: Text('Parceiros'),
@@ -202,7 +202,7 @@ class _SideMenuState extends State<SideMenu> {
         ),
       );
     }
-    if (widget.patrocinadores != null) {
+    if (widget.patrocinadores != null  && widget.patrocinadores.length > 0) {
       lista.add(
         ListTile(
           title: Text('Patrocinadores'),
@@ -226,7 +226,7 @@ class _SideMenuState extends State<SideMenu> {
         ),
       );
     }
-    if (widget.organizacao != null) {
+    if (widget.organizacao != null && widget.organizacao.length > 0) {
       lista.add(
         ListTile(
           title: Text('Organizadores'),

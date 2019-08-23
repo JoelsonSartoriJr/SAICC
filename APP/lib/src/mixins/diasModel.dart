@@ -8,7 +8,8 @@ class DiasModel{
     keys.sort();
     for(int a = 0; a< keys.length; a++){
       Map<String, dynamic> parsed = parsedJson[keys[a]];
-      dia.add(parsed['dia']);
+      if(parsed['dia'] != null)
+        dia.add(parsed['dia']);
     }
     
   }

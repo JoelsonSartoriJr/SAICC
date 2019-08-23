@@ -55,6 +55,7 @@ class App extends StatelessWidget {
                 return MappingPage(model: snapshot.data);
               }
             } catch (e) {
+              print(e);
               return ErrorScreen().screen();
             }
           },

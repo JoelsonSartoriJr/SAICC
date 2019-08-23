@@ -30,7 +30,12 @@ class _DiaState extends State<Dia> {
         eventodia.add(eventos[a]);
       }
     }
-    eventodia.sort((a, b)=> (b.favoritar == true ? 1 : 0).compareTo(a.favoritar == true ? 1 : 0));
+    if(widget.useruid != ''){
+      eventodia.sort((a, b)=> (b.favoritar == true ? 1 : 0).compareTo(a.favoritar == true ? 1 : 0));
+    }
+    else{
+       eventodia.sort((a, b)=> (a.hora).compareTo(b.hora));
+    }
     List<Widget> lista = new List<Widget>();
     for (int a = 0; a < eventodia.length; a++) {
       lista.add(CardPalestra(eventodia[a], ref, widget.useruid));

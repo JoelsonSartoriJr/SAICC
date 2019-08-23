@@ -8,13 +8,13 @@ class ParceirosModel {
 
   ParceirosModel.fromJson(Map<String, dynamic> parsedJson, String id) {
     key = id;
-    logo = parsedJson['logo'];
-    nome = parsedJson['nome'];
+    logo = parsedJson['logo']!= null ? parsedJson['logo'] : '';
+    nome = parsedJson['nome']!= null ? parsedJson['nome'] : '';
   }
 
   ParceirosModel.fromSnapshot(DataSnapshot snapshot, String id) {
     key = id;
-    logo = snapshot.value['logo'];
-    nome = snapshot.value['nome'];
+    logo = snapshot.value['logo']!= null ? snapshot.value['logo'] : '';
+    nome = snapshot.value['nome']!= null ? snapshot.value['nome'] : '';
   }
 }

@@ -8,13 +8,13 @@ class OrganizacaoModel {
 
   OrganizacaoModel.fromJson(Map<String, dynamic> parsedJson, String id) {
     key = id;
-    imagem = parsedJson['imagem'];
-    nome = parsedJson['nome'];
+    imagem = parsedJson['imagem']!= null ? parsedJson['imagem'] : '';
+    nome = parsedJson['nome']!= null ? parsedJson['nome'] : '';
   }
 
   OrganizacaoModel.fromSnapshot(DataSnapshot snapshot, String id) {
      key = id;
-    imagem = snapshot.value['imagem'];
-    nome = snapshot.value['nome'];
+    imagem = snapshot.value['imagem']!= null ? snapshot.value['imagem'] : '';
+    nome = snapshot.value['nome']!= null ? snapshot.value['nome'] : '';
   }
 }
